@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('types', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('image')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

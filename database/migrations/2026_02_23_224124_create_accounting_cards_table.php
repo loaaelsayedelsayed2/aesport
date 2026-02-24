@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('accounting_cards', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('card_number');
+            $table->string('expiry_date');
+            $table->string('csv');
             $table->timestamps();
         });
     }

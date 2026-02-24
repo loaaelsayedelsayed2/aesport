@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('cart_id')->constrained('carts')->onDelete('cascade');
+            $table->string('order_number')->unique();
+            $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
+            $table->integer('item_count')->default(1);
+            $table->decimal('delivery_fee', 10, 2)->default(0);
+            $table->decimal('coupon_discount', 10, 2)->default(0);
+            $table->decimal('total_amount', 10, 2)->default(0);
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
+            $table->string('country');
+            $table->text('address');
+            $table->string('phone');
             $table->timestamps();
         });
     }
