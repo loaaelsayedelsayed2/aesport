@@ -3,12 +3,17 @@
 namespace App\Filament\Resources\Users\Pages;
 
 use App\Filament\Resources\Users\UserResource;
-use Filament\Actions\CreateAction;
+use App\Filament\Resources\Users\Widgets\StatsUserOverview;
 use Filament\Resources\Pages\ListRecords;
 
 class ListUsers extends ListRecords
 {
     protected static string $resource = UserResource::class;
+
+    public function getSubheading(): ?string
+    {
+        return 'View and manage your customers.';
+    }
 
     protected function getTableRecordsPerPageSelectOptions(): array
     {
@@ -22,4 +27,10 @@ class ListUsers extends ListRecords
         ];
     }
 
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            StatsUserOverview::class,
+        ];
+    }
 }

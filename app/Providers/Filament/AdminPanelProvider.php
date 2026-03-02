@@ -32,10 +32,10 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->authGuard('admin')
             ->colors([
-                'primary' => Color::hex('#B91818'), // هذه هي الطريقة الصحيحة في v3
+                'primary' => Color::hex('#B91818'), 
                 'danger' => Color::Red,
                 'gray' => Color::Gray,
-                'info' => Color::Blue,
+                'info' => Color::hex('#2186FF'),
                 'success' => Color::Green,
                 'warning' => Color::Yellow,
             ])
@@ -44,10 +44,10 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                // AccountWidget::class,
+                // FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

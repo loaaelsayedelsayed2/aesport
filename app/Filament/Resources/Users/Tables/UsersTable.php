@@ -3,12 +3,14 @@
 namespace App\Filament\Resources\Users\Tables;
 
 use App\Models\Cart;
+use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -59,7 +61,7 @@ class UsersTable
             ])
             ->filters([
                 SelectFilter::make('location')
-                    ->label('Filter by Location')
+                    ->label('All Location')
                     ->options(
                         fn() => \App\Models\User::query()
                             ->pluck('location', 'location')
@@ -68,14 +70,7 @@ class UsersTable
                     )
                     ->searchable(),
             ])
-            ->recordActions([
-                // ViewAction::make(),
-                // EditAction::make(),
-            ])
-            ->toolbarActions([
-                // BulkActionGroup::make([
-                //     DeleteBulkAction::make(),
-                // ]),
-            ]);
+            ->recordActions([])
+            ->toolbarActions([]);
     }
 }

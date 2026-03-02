@@ -27,10 +27,6 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'Customers';
     protected static ?string $recordTitleAttribute = 'Customers';
     protected static ?string $pluralModelLabel = 'Customers';
-    public static function getModelLabelDescription(): ?string
-    {
-        return 'Manage your customer accounts and their information';
-    }
 
     public static function getNavigationBadge(): ?string
     {
@@ -63,8 +59,6 @@ class UserResource extends Resource
         return [
             'index' => ListUsers::route('/'),
             'create' => CreateUser::route('/create'),
-            // 'view' => ViewUser::route('/{record}'),
-            // 'edit' => EditUser::route('/{record}/edit'),
         ];
     }
 
