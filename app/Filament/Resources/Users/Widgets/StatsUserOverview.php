@@ -18,30 +18,6 @@ class StatsUserOverview extends StatsOverviewWidget
         return 3;
     }
 
-    // protected function getStats(): array
-    // {
-    //     return [
-    //         Stat::make('Total Customers', User::count())
-    //             ->color('info')
-    //             ->description('+3.1%')
-    //             ->descriptionIcon('heroicon-m-arrow-trending-up', IconPosition::Before)
-    //             ->descriptionColor('success'),
-
-    //         Stat::make('New This Month', 50)
-    //             ->label('New This Month')
-    //             ->description('+3.1%')
-    //             ->descriptionIcon('heroicon-m-arrow-trending-down')
-    //             ->descriptionColor('danger')
-    //             ->color('success'),
-
-    //         Stat::make('Active Customers', 20)
-    //             ->label('Active Customers')
-    //             ->description('+3.1%')
-    //             ->descriptionIcon('heroicon-m-arrow-trending-up')
-    //             ->descriptionColor('success')
-    //             ->color('warning'),
-    //     ];
-    // }
     protected function getStats(): array
     {
 

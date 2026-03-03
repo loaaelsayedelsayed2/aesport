@@ -34,7 +34,7 @@ class AuthServices
             $user = $this->userRepository->create($request->validated());
             return $this->success($user, "Registration successful , Go to login");
         } catch (\Exception $e) {
-            return $this->fail([], "Registration failed");
+            return $this->fail([], "Registration failed . $e");
         }
     }
     public function login($request)

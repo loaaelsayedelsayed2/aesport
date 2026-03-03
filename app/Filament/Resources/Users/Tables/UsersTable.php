@@ -36,19 +36,14 @@ class UsersTable
                     ->label('Email'),
                 TextColumn::make('phone')
                     ->searchable(),
-                TextColumn::make('gender')
-                    ->badge(),
+
                 TextColumn::make('location')
                     ->label('Location'),
-                TextColumn::make('birthday')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('birthday'),
+
                 // ✅ عدد الأوردرات (static)
                 TextColumn::make('orders_count')
                     ->label('Orders Count')
                     ->state(fn() => rand(1, 10)) // قيمة مؤقتة
-                    ->badge()
                     ->color('primary'),
 
                 // ✅ آخر أوردر (static)
@@ -56,7 +51,6 @@ class UsersTable
                     ->label('Last Order')
                     ->state(fn() => now()->subDays(rand(1, 30)))
                     ->dateTime()
-                    ->badge()
                     ->color('success'),
             ])
             ->filters([
