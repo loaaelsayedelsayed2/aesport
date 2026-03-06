@@ -137,31 +137,78 @@ class FilamentStylesProvider extends ServiceProvider
         border-bottom: none !important;
     }
 
+    /* --- تنسيق مربع البحث (Search Input) --- */
 
-        /* --- الترقيم (Pagination) --- */
-    .fi-ta-pagination {
-        background-color: transparent !important;
-        border-top: none !important;
-        margin-top: 15px;
+    /* الخلفية والحدود لمربع البحث */
+    .fi-ta-header-toolbar input,
+    .fi-ta-header-toolbar .fi-input-wrp {
+        background-color: #2B2B2B !important; /* لون داكن قريب من الأسود */
+        border: 1px solid #444 !important; /* حدود رمادية غامقة */
+        color: #FFFFFF !important; /* لون الكتابة أبيض */
+        border-radius: 8px !important;
+    }
+    /* لون الـ Placeholder (النص المؤقت داخل البحث) */
+    .fi-ta-header-toolbar input::placeholder {
+        color: #AFAFAF !important;
+        opacity: 0.8;
     }
 
-    .fi-ta-pagination button,
-    .fi-ta-pagination select {
-        background-color: #151515 !important;
-        color: white !important;
+    /* تغيير لون أيقونة البحث (العدسة) */
+    .fi-ta-header-toolbar .fi-input-wrp svg {
+        color: #AFAFAF !important;
+    }
+
+    /* شكل المربع لما تضغطي عليه (Focus) */
+    .fi-ta-header-toolbar .fi-input-wrp:focus-within {
+        border-color: #B91818 !important; /* يقلب أحمر لما تضغطي عليه */
+        box-shadow: 0 0 0 1px #B91818 !important;
+    }
+
+    /* أيقونة الفلتر (لو موجودة بجانب البحث) */
+    .fi-ta-header-toolbar button.fi-icon-btn {
+        background-color: #1a1a1a !important;
+        color: #FFFFFF !important;
+        border: 1px solid #444 !important;
+        border-radius: 8px !important;
+    }
+
+    /* --- تنسيق قوائم الاختيار (Select Inputs) والترقيم --- */
+
+    /* تلوين مربع الاختيار (Per page) والقوائم المنسدلة */
+    .fi-select-input,
+    .fi-ta-header-toolbar select {
+        background-color: #1a1a1a !important; /* خلفية دارك */
+        color: #FFFFFF !important; /* كلام أبيض */
+        border: 1px solid #444 !important; /* حدود متناسقة */
+        border-radius: 8px !important;
+        cursor: pointer;
+    }
+    /* تلوين الخيارات داخل القائمة (Options) */
+    /* ملحوظة: بعض المتصفحات بتفرض ستايل معين على الـ option */
+    .fi-select-input option {
+        background-color: #1a1a1a !important;
+        color: #FFFFFF !important;
+    }
+
+
+    /* أيقونة السهم داخل الـ Select */
+    .fi-select-input-wrp svg {
+        color: #FFFFFF !important;
+    }
+    /* خلفية كارت الفلتر نفسه لما يفتح */
+    .fi-dropdown-panel {
+        background-color: #2B2B2B !important;
         border: 1px solid #444 !important;
     }
 
-    .fi-ta-pagination button.fi-active {
-        background-color: #B91818 !important;
-        border-color: #B91818 !important;
+    /* الكلام داخل كارت الفلتر */
+    .fi-dropdown-panel label,
+    .fi-dropdown-panel span {
+        color: #FFFFFF !important;
     }
 
-    /* نصوص الترقيم */
-    .fi-ta-pagination-record-count-label,
-    .fi-ta-pagination-overview {
-        color: white !important;
-    }
+/* --- الترقيم (Pagination) النهائي --- */
+    
 
 </style>
 HTML
