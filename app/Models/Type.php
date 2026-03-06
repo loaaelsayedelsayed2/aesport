@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
-    //
+    protected $fillable = [
+        "name",
+        "is_active",
+        "parent_id"
+    ];
 }

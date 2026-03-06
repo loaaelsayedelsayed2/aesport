@@ -102,6 +102,7 @@ class FilamentStylesProvider extends ServiceProvider
         border-bottom-left-radius: 12px !important;
     }
 
+
     .fi-ta-table thead tr th:last-child {
         border-top-right-radius: 12px !important;
         border-bottom-right-radius: 12px !important;
@@ -120,17 +121,15 @@ class FilamentStylesProvider extends ServiceProvider
         color: white !important;
         font-weight: 600 !important;
     }
+    .fi-ta-header-ctn {
+        background-color: transparent !important;
+    }
 
     /* أيقونات الترتيب داخل الهيدر */
     .fi-ta-header-cell .fi-icon-btn {
         color: white !important;
     }
 
-    /* 4. محتوى الجدول (الصفوف) */
-    .fi-ta-cell {
-        color: #FFFFFF !important;
-        border-bottom: 1px solid #333 !important;
-    }
 
     /* إزالة الخط الأبيض اللي فوق الهيدر الأحمر */
     .fi-ta-header-toolbar {
@@ -208,7 +207,106 @@ class FilamentStylesProvider extends ServiceProvider
     }
 
 /* --- الترقيم (Pagination) النهائي --- */
-    
+
+/* خلفية المودال الأساسية */
+.fi-modal-window {
+    background-color: #000000 !important;
+    border: 1px solid #333 !important;
+    border-radius: 12px !important;
+}
+
+/* عنوان المودال */
+.fi-modal-heading {
+    color: white !important;
+    font-weight: bold !important;
+}
+.fi-fo-text-input input {
+    background-color: #727272 !important; /* اللون الرمادي اللي في الصورة */
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+}
+
+/* لون الـ Placeholder (النص الباهت) */
+.fi-fo-text-input input::placeholder {
+    color: #afafaf !important;
+}
+
+/* الليبل (Category Name) */
+.fi-fo-field-wrp-label label {
+    color: white !important;
+    font-weight: 600 !important;
+}
+/* زرار الحفظ (الأساسي) */
+.fi-modal-actions .fi-btn-color-primary {
+    background-color: #B91818 !important; /* الأحمر الخاص بك */
+    border-radius: 8px !important;
+    color: white !important;
+}
+
+/* زرار الإلغاء */
+.fi-modal-actions .fi-btn-color-gray {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-radius: 8px !important;
+}
+.fi-fo-field-wrp-helper-text {
+    color: #AFAFAF !important;
+    margin-top: 8px !important;
+}
+/* توحيد لون كل العناوين داخل المودال للأبيض */
+.fi-modal label,
+.fi-modal .fi-fo-field-wrp-label label {
+    color: white !important;
+}
+
+/* تنسيق الـ Select عشان يماشي الـ Input الرمادي */
+.fi-modal select {
+    background-color: #151515 !important; /* نفس درجة الخلفية اللي بتفضلها */
+    color: white !important;
+    border: 1px solid #444 !important;
+}
+
+/* الزرار الأحمر (Save) للتأكيد على درجة اللون #B91818 */
+.fi-modal .fi-btn-color-danger {
+    background-color: #B91818 !important;
+    color: white !important;
+}
+
+/* إصلاح لون العناوين (Labels) لتكون بيضاء واضحة */
+.fi-modal label span,
+.fi-modal .fi-fo-field-wrp-label label {
+    color: white !important;
+}
+
+/* تنسيق الـ Input الرمادي ليكون مطابق للصورة تماماً */
+.fi-modal input, .fi-modal select {
+    background-color: #727272 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+}
+.fi-modal .fi-fo-field-wrp-label label span {
+    color: #ffffff !important; /* لون أبيض صريح */
+    font-weight: 600 !important;
+}
+.fi-modal .fi-fo-field-wrp-label label span [title*="required"] {
+    color: #B91818 !important;
+}
+
+/* تلوين النص التوضيحي (Helper Text) باللون الرمادي الفاتح */
+.fi-modal .fi-fo-field-wrp-helper-text {
+    color: #AFAFAF !important;
+}
+
+/* تلوين النص بجانب الـ Toggle (Status) */
+.fi-modal .fi-fo-toggle-label {
+    color: #ffffff !important;
+}
+
+
+
 
 </style>
 HTML
