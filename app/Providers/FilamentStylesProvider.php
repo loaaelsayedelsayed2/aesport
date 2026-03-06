@@ -12,219 +12,156 @@ class FilamentStylesProvider extends ServiceProvider
     {
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_END,
-            fn () => <<<'HTML'
+            fn() => <<<'HTML'
 <style>
+    /* --- الإعدادات العامة للجسم والخلفية --- */
+    body.fi-body,
+    .fi-main,
+    .fi-app-layout,
+    .fi-main-ctn {
+        background-color: #242323 !important;
+        color: #FFFFFF !important;
+    }
 
-/* --- تعديلات القائمة الجانبية (Sidebar) --- */
+    /* --- القائمة الجانبية (Sidebar) --- */
+    .fi-sidebar {
+        background-color: #151515 !important;
+        border-right: 1px solid #1a1a1a !important;
+        box-shadow: none !important;
+    }
 
-.fi-sidebar {
-    background-color: #151515;
-    border: 2px solid #C9C9C9;
-    color: #AFAFAF;
-}
+    .fi-sidebar-item-label,
+    .fi-sidebar-item-icon {
+        color: #AFAFAF !important;
+    }
 
-.fi-sidebar-item-label {
-    color: #AFAFAF !important;
-}
+    .fi-sidebar-item.fi-active .fi-sidebar-item-icon,
+    .fi-sidebar-item.fi-active .fi-sidebar-item-label,
+    .fi-sidebar-item:hover .fi-sidebar-item-icon,
+    .fi-sidebar-item:hover .fi-sidebar-item-label {
+        color: #B91818 !important;
+        background-color: transparent !important;
+    }
 
-/* الأيقونات غير النشطة */
-.fi-sidebar-item-icon {
-    color: #AFAFAF !important;
-}
+    /* --- الهيدر والتوب بار --- */
+    .fi-topbar {
+        background-color: #151515 !important;
+        box-shadow: none !important;
+        border-bottom: 1px solid #1a1a1a !important;
+    }
 
-.fi-sidebar-item.fi-active .fi-sidebar-item-icon,
-.fi-sidebar-item.fi-sidebar-item-active .fi-sidebar-item-icon,
-.fi-sidebar-item.fi-active .fi-sidebar-item-label,
-.fi-sidebar-item.fi-sidebar-item-active .fi-sidebar-item-label,
-.fi-sidebar-item:hover .fi-sidebar-item-icon,
-.fi-sidebar-item:hover .fi-sidebar-item-label {
-    color: #B91818 !important;
-    box-shadow: none !important;
-}
+    .fi-header-heading {
+        color: #B91818 !important;
+    }
 
-/* الهيدر */
-.fi-header,
-.fi-topbar {
-    background-color: #151515 !important;
-    color: #B91818 !important;
-}
+    /* --- كروت الإحصائيات (Stats Overview) --- */
+    .fi-wi-stats-overview-stat {
+        background-color: #2B2B2B !important;
+        border: 1px solid #626262 !important;
+        transition: transform .2s ease;
+    }
 
-/* خلفية الصفحة */
-.fi-main,
-.fi-app-layout,
-body.fi-body {
-    background-color: #242323 !important;
-    color: #FFFFFF !important;
-}
+    .fi-wi-stats-overview-stat:hover {
+        transform: translateY(-2px);
+    }
 
-/* محتوى الصفحة */
-.fi-main-ctn {
-    background-color: #242323 !important;
-}
+    .fi-wi-stats-overview-stat-value {
+        color: #FFFFFF !important;
+    }
 
-/* إزالة الظلال */
-.fi-topbar,
-.fi-sidebar {
-    box-shadow: none !important;
-    border-color: #1a1a1a !important;
-}
+    /* --- تخصيص الجدول (The Table) --- */
 
-/* عناوين الصفحات */
-.fi-header {
-    background-color: #242323 !important;
-}
+    /* 1. الحاوية الخارجية للجدول */
+    .fi-ta-ctn {
+        background-color: #2B2B2B !important;
+        border: 2px solid #444 !important;
+        border-radius: 20px !important;
+        padding: 20px !important;
+        overflow: hidden;
+        color: #FFFFFF !important;
+    }
+    .fi-ta-cell,
+    .fi-ta-cell span,
+    .fi-ta-cell div,
+    .fi-ta-cell p {
+        color: #FFFFFF !important;
+    }
 
-.fi-wi-stats-overview-stat-description,
-.fi-section-header-description,
-.fi-header-subheading,
-.fi-ta-empty-state-description {
-    color: #ffffff !important;
-    opacity: 0.9;
-}
+    /* 2. هيدر الجدول (الصف الأحمر المتصل) */
+    .fi-ta-table thead {
+        background-color: #B91818 !important;
+        border: none;
+        color: #FFFFFF !important;
+        border-top: none !important;
+        border-bottom: none !important;
+    }
 
-/* كروت الإحصائيات */
-.fi-wi-stats-overview-stat {
-    background-color: #2B2B2B !important;
-    border: 2px solid #626262 !important;
-}
+    /* جعل زوايا الهيدر مستديرة */
+    .fi-ta-table thead tr th:first-child {
+        border-top-left-radius: 12px !important;
+        border-bottom-left-radius: 12px !important;
+    }
 
-.fi-wi-stats-overview-stat-value,
-.fi-wi-stats-overview-stat div span,
-.fi-wi-stats-overview-stat .text-3xl {
-    color: #FFFFFF !important;
-}
+    .fi-ta-table thead tr th:last-child {
+        border-top-right-radius: 12px !important;
+        border-bottom-right-radius: 12px !important;
+    }
 
-/* عنوان الصفحة */
-.filament-header-heading,
-h1.filament-header-heading,
-.fi-header-heading,
-h1.fi-header-heading {
-    color: #920404 !important;
-    border-radius: 12px !important;
-    display: inline-block !important;
-}
+    /* 3. خلايا الهيدر */
+    .fi-ta-header-cell {
+        background-color: #B91818 !important; /* مهم جداً لظهور لون الـ thead */
+        border: none !important;
+        padding: 12px !important;
+        color: #FFFFFF !important;
+    }
 
-/* رؤوس الجداول */
+    .fi-ta-header-cell-label,
+    .fi-ta-header-cell span {
+        color: white !important;
+        font-weight: 600 !important;
+    }
 
-table thead th,
-.filament-tables-table thead th {
-    background-color: #B91818 !important;
-    color: #ffffff !important;
-}
+    /* أيقونات الترتيب داخل الهيدر */
+    .fi-ta-header-cell .fi-icon-btn {
+        color: white !important;
+    }
 
-.filament-tables-header-cell:hover,
-.fi-ta-header-cell:hover,
-.filament-tables-header-cell button:hover,
-.fi-ta-header-cell button:hover {
-    background-color: #B91818 !important;
-    border: none !important;
-}
+    /* 4. محتوى الجدول (الصفوف) */
+    .fi-ta-cell {
+        color: #FFFFFF !important;
+        border-bottom: 1px solid #333 !important;
+    }
 
-/* عنوان الجدول */
+    /* إزالة الخط الأبيض اللي فوق الهيدر الأحمر */
+    .fi-ta-header-toolbar {
+        border-bottom: none !important;
+    }
 
-.filament-tables-header,
-.fi-ta-header {
-    background-color: #B91818 !important;
-    color: #ffffff !important;
-    padding: 0.75rem !important;
-    border-radius: 12px !important;
-}
 
-.fi-ta-header-ctn {
-    border-bottom: none !important;
-}
+        /* --- الترقيم (Pagination) --- */
+    .fi-ta-pagination {
+        background-color: transparent !important;
+        border-top: none !important;
+        margin-top: 15px;
+    }
 
-/* الجدول */
+    .fi-ta-pagination button,
+    .fi-ta-pagination select {
+        background-color: #151515 !important;
+        color: white !important;
+        border: 1px solid #444 !important;
+    }
 
-.fi-ta-table {
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-}
+    .fi-ta-pagination button.fi-active {
+        background-color: #B91818 !important;
+        border-color: #B91818 !important;
+    }
 
-.fi-ta-header-cell {
-    background-color: #B91818 !important;
-}
-
-.fi-ta-header-cell-label {
-    color: white !important;
-    font-weight: 500 !important;
-    text-transform: none !important;
-    font-size: 0.9rem !important;
-}
-
-/* Container */
-
-.fi-ta-ctn {
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    border: 1px solid #eee !important;
-    background-color: #2B2B2B !important;
-    color: #ffffff !important;
-}
-
-/* أيقونات الترتيب */
-
-.fi-ta-header-cell .fi-icon-btn {
-    color: #ffffff !important;
-}
-
-.fi-ta-cell,
-.fi-ta-cell *,
-.fi-ta-empty-state-heading,
-.fi-ta-empty-state-description,
-.fi-ta-header-cell-label {
-    color: #FFFFFF !important;
-    border-bottom: 1px solid #333 !important;
-    border-right: none !important;
-}
-
-/* Pagination */
-
-.fi-ta-pagination {
-    background-color: #2B2B2B !important;
-    border-top: 1px solid #444 !important;
-}
-
-.fi-ta-pagination div,
-.fi-ta-pagination p,
-.fi-ta-pagination span {
-    color: #FFFFFF !important;
-    font-weight: 300 !important;
-}
-
-.fi-ta-pagination button,
-.fi-ta-pagination nav,
-.fi-ta-pagination select {
-    background-color: #000000 !important;
-    color: #FFFFFF !important;
-    border: 1px solid #444444 !important;
-}
-
-.fi-ta-pagination svg {
-    color: #FFFFFF !important;
-}
-
-.fi-ta-pagination button.fi-active,
-.fi-ta-pagination button[aria-current="page"] {
-    background-color: #B91818 !important;
-    border-color: #B91818 !important;
-    color: #FFFFFF !important;
-}
-
-.fi-ta-pagination select {
-    background-color: #000000 !important;
-    color: #FFFFFF !important;
-    border-radius: 5px !important;
-}
-
-/* Search input */
-
-.fi-ta-header-toolbar input {
-    background-color: #1a1a1a !important;
-    border: 1px solid #444 !important;
-    border-radius: 50px !important;
-    color: white !important;
-}
+    /* نصوص الترقيم */
+    .fi-ta-pagination-record-count-label,
+    .fi-ta-pagination-overview {
+        color: white !important;
+    }
 
 </style>
 HTML

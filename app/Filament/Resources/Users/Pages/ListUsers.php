@@ -23,7 +23,7 @@ class ListUsers extends ListRecords
     public function getTableRecordClasses(): ?array
     {
         return [
-            'hover:bg-gray-50',
+            'hover:bg-[#333]',
         ];
     }
 
