@@ -3,63 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Type;
+use App\Services\TypeServices;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    protected $typeServices;
+    public function __construct(
+        TypeServices $typeServices
+    ) {
+        $this->typeServices = $typeServices;
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function list()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Type $type)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Type $type)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Type $type)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Type $type)
-    {
-        //
+        return $this->typeServices->list();
     }
 }

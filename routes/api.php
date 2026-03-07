@@ -8,3 +8,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 require __DIR__.'/v1/auth.php';
+require __DIR__.'/v1/product.php';
