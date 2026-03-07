@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Filament\Resources\Types\Tables;
+namespace App\Filament\Resources\Categories\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
-class TypesTable
+class CategoriesTable
 {
     public static function configure(Table $table): Table
     {
@@ -20,23 +20,27 @@ class TypesTable
             ->actionsColumnLabel('Actions')
             ->columns([
                 TextColumn::make('name')
-                    ->label('Category Name'),
+                    ->label('Name')
+                    ->searchable(),
                 ToggleColumn::make('is_active')
                     ->label('Is Active'),
-                TextColumn::make('products_count')
-                    ->label('Product Count')
-                    ->default(0)
+                TextColumn::make('parent.name')
+                    ->label('Main Category')
+                    ->sortable()
+                    ->default('Main'),
             ])
-            ->filters([])
+            ->filters([
+                //
+            ])
             ->recordActions([
                 EditAction::make()
                     ->label('Edit')
                     ->icon('heroicon-o-pencil')
-                    ->color('white'), 
+                    ->color('white'),
                 DeleteAction::make()
                     ->label('Delete')
                     ->icon('heroicon-o-trash')
-                    ->color('danger'),
+                    ->color('danger'), 
             ])
             ->toolbarActions([]);
     }

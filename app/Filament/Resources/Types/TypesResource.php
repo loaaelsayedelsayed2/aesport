@@ -20,11 +20,12 @@ class TypesResource extends Resource
 {
     protected static ?string $model = Type::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
 
     protected static ?string $recordTitleAttribute = 'Gender/Types';
     protected static ?string $navigationLabel = 'Gender/Types';
     protected static ?string $pluralModelLabel = 'Gender/Types';
+    protected static ?int $navigationSort = 2;
 
     public static function getNavigationBadge(): ?string
     {

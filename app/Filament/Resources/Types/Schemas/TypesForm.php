@@ -15,14 +15,14 @@ class TypesForm
         return $schema
             ->components([
                 TextInput::make('name')
-                ->label('Category Name')
+                ->label('Type Name')
                 ->placeholder('Men')
                 ->extraInputAttributes(['class' => 'custom-input-style'])
                 ->required(),
 
                 Toggle::make('is_active')
                     ->label('Status')
-                    ->helperText('Category Will Be Hidden From Store If Inactive')
+                    ->helperText('Type Will Be Hidden From Store If Inactive')
                     ->default(true)
                     ->onColor('danger'),
             ])->columns(1);
