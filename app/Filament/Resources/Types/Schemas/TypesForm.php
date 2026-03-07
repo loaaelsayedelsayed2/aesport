@@ -19,12 +19,7 @@ class TypesForm
                 ->placeholder('Men')
                 ->extraInputAttributes(['class' => 'custom-input-style'])
                 ->required(),
-                // Select::make('parent_id')
-                //     ->label('Parent Type')
-                //     ->options(function () {
-                //         return \App\Models\Type::pluck('name', 'id');
-                //     })
-                //     ->nullable(),
+
                 Toggle::make('is_active')
                     ->label('Status')
                     ->helperText('Category Will Be Hidden From Store If Inactive')

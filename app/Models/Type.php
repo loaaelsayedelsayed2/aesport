@@ -9,6 +9,10 @@ class Type extends Model
     protected $fillable = [
         "name",
         "is_active",
-        "parent_id"
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

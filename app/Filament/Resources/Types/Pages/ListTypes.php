@@ -16,7 +16,15 @@ class ListTypes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            // CreateAction::make(),
+            CreateAction::make()
+                    ->label('Add Type')
+                    ->icon('heroicon-o-plus')
+                    ->modalHeading('Add Type')
+                    ->modalWidth('lg')
+                    ->createAnother(false)
+                    ->modalSubmitActionLabel('Save')
+                    ->modalSubmitAction(fn ($action) => $action->color('danger'))
+                    ->modalCancelAction(fn ($action) => $action->label('Cancel')->color('gray')),
         ];
     }
 }

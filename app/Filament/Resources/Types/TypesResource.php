@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class TypesResource extends Resource
 {
@@ -53,5 +54,10 @@ class TypesResource extends Resource
             // 'create' => CreateTypes::route('/create'),
             // 'edit' => EditTypes::route('/{record}/edit'),
         ];
+    }
+
+    protected static function getTableQuery(): Builder
+    {
+        return parent::getTableQuery()->withCount('products');
     }
 }

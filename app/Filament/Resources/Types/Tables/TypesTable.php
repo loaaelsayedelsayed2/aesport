@@ -23,31 +23,19 @@ class TypesTable
                     ->label('Category Name'),
                 ToggleColumn::make('is_active')
                     ->label('Is Active'),
-                // ToggleColumn::make('parent_id')
-                //     ->label('Main/Sub'),
-                TextColumn::make('product')
-                    ->label('Product Count'),
+                TextColumn::make('products_count')
+                    ->label('Product Count')
+                    ->default(0)
             ])
             ->filters([
-                //
-            ])
-            ->headerActions([
-                CreateAction::make()
-                    ->modalHeading('Add Category')
-                    ->modalWidth('lg')
-                    ->createAnother(false)
-                    ->modalSubmitActionLabel('Save')
-                    ->modalSubmitAction(fn ($action) => $action->color('danger'))
-                    ->modalCancelAction(fn ($action) => $action->label('Cancel')->color('gray')),
+
             ])
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make()
             ])
             ->toolbarActions([
-                // BulkActionGroup::make([
-                //     DeleteBulkAction::make(),
-                // ]),
+
             ]);
     }
 }

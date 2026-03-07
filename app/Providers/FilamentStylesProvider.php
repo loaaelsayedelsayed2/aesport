@@ -53,6 +53,9 @@ class FilamentStylesProvider extends ServiceProvider
     .fi-header-heading {
         color: #B91818 !important;
     }
+    .fi-header-subheading {
+        color: #FFFFFF !important;
+    }
 
     /* --- كروت الإحصائيات (Stats Overview) --- */
     .fi-wi-stats-overview-stat {
@@ -92,8 +95,6 @@ class FilamentStylesProvider extends ServiceProvider
         background-color: #B91818 !important;
         border: none;
         color: #FFFFFF !important;
-        border-top: none !important;
-        border-bottom: none !important;
     }
 
     /* جعل زوايا الهيدر مستديرة */
@@ -107,6 +108,16 @@ class FilamentStylesProvider extends ServiceProvider
         border-top-right-radius: 12px !important;
         border-bottom-right-radius: 12px !important;
     }
+    /* تغيير لون hover للصفوف في الجدول */
+    .fi-ta-table tbody tr:hover {
+        background-color: #1f1f1f !important;
+    }
+
+    /* تغيير لون النص لو حابب */
+    .fi-ta-table tbody tr:hover td {
+        color: #fff !important;
+    }
+
 
     /* 3. خلايا الهيدر */
     .fi-ta-header-cell {
