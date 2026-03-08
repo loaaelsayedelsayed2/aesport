@@ -376,6 +376,7 @@ class FilamentStylesProvider extends ServiceProvider
     border-top: 1px solid #333 !important;
 }
 
+
 /* الـ Select2 / Choices.js panel لو مستخدمة */
 .ts-dropdown,
 .ts-dropdown .option {
@@ -436,6 +437,47 @@ class FilamentStylesProvider extends ServiceProvider
 
 .ts-dropdown input::placeholder {
     color: #afafaf !important;
+}
+
+/* إصلاح الـ File Upload */
+.fi-fo-file-upload,
+.fi-fo-file-upload .fi-dropzone,
+.fi-fo-file-upload [x-data],
+.fi-modal .filepond--root,
+.fi-modal .filepond--drop-label {
+    background-color: #727272 !important;
+    color: #ffffff !important;
+    border: 1px dashed #444 !important;
+    border-radius: 8px !important;
+}
+
+.fi-modal .filepond--drop-label label {
+    color: #ffffff !important;
+}
+
+/* زراير المودال */
+.fi-modal-actions .fi-btn-color-gray {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* عنوان الـ FileUpload */
+.fi-fo-file-upload .fi-fo-field-wrp-label label,
+.fi-fo-file-upload label,
+[class*="file-upload"] label {
+    color: #ffffff !important;
+}
+
+/* كل الـ labels في الـ modal */
+.fi-modal *,
+.fi-modal label,
+.fi-modal span,
+.fi-modal p,
+.fi-fo-field-wrp-label,
+.fi-fo-field-wrp-label *,
+[class*="fi-fo"] label,
+[class*="fi-fo"] span {
+    color: #ffffff !important;
 }
 
 

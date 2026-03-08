@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Filament\Resources\Types\Pages;
+namespace App\Filament\Resources\Sports\Pages;
 
-use App\Filament\Resources\Types\TypesResource;
+use App\Filament\Resources\Sports\SportsResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListTypes extends ListRecords
+class ListSports extends ListRecords
 {
-    protected static string $resource = TypesResource::class;
+    protected static string $resource = SportsResource::class;
+
     public function getSubheading(): ?string
     {
-        return 'manage your types/genders and create merchanding collections ..';
+        return 'manage your sports and create merchanding collections ..';
     }
     protected function getHeaderActions(): array
     {
         return [
             CreateAction::make()
-                    ->label('Add Type')
+                    ->label('Add Sport')
                     ->icon('heroicon-o-plus')
-                    ->modalHeading('Add Type')
+                    ->modalHeading('Add Sport')
                     ->modalWidth('lg')
                     ->createAnother(false)
                     ->modalSubmitActionLabel('Save')

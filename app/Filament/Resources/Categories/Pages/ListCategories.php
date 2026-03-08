@@ -25,7 +25,7 @@ class ListCategories extends ListRecords
                     ->createAnother(false)
                     ->modalSubmitActionLabel('Save')
                     ->modalSubmitAction(fn ($action) => $action->color('danger'))
-                    ->modalCancelAction(fn ($action) => $action->label('Cancel')->color('gray')),
+                    ->modalCancelAction(fn ($action) => $action->label('Cancel')->color('cancel'))
         ];
     }
 }
