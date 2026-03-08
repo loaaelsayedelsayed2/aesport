@@ -7,6 +7,7 @@ use App\Filament\Resources\Brands\Pages\EditBrands;
 use App\Filament\Resources\Brands\Pages\ListBrands;
 use App\Filament\Resources\Brands\Schemas\BrandsForm;
 use App\Filament\Resources\Brands\Tables\BrandsTable;
+use App\Models\Brand;
 use App\Models\Brands;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -16,12 +17,20 @@ use Filament\Tables\Table;
 
 class BrandsResource extends Resource
 {
-    protected static ?string $model = Brands::class;
+    protected static ?string $model = Brand::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingStorefront;
 
-    protected static ?string $recordTitleAttribute = 'Brand';
+    protected static ?string $recordTitleAttribute = 'Brands';
+    protected static ?string $navigationLabel = 'Brands';
+    protected static ?string $pluralModelLabel = 'Brands';
+    protected static ?int $navigationSort = 5;
 
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
     public static function form(Schema $schema): Schema
     {
         return BrandsForm::configure($schema);
@@ -43,8 +52,6 @@ class BrandsResource extends Resource
     {
         return [
             'index' => ListBrands::route('/'),
-            'create' => CreateBrands::route('/create'),
-            'edit' => EditBrands::route('/{record}/edit'),
         ];
     }
 }
