@@ -28,6 +28,11 @@ class CategoriesTable
                     ->label('Main Category')
                     ->sortable()
                     ->default('Main'),
+                TextColumn::make('types.name')
+                    ->label('Types')
+                    ->badge()
+                    ->separator(',')
+                    ->color('danger'),
             ])
             ->filters([
                 //
@@ -40,7 +45,7 @@ class CategoriesTable
                 DeleteAction::make()
                     ->label('Delete')
                     ->icon('heroicon-o-trash')
-                    ->color('danger'), 
+                    ->color('danger'),
             ])
             ->toolbarActions([]);
     }

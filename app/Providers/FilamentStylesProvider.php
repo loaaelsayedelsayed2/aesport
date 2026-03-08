@@ -146,6 +146,16 @@ class FilamentStylesProvider extends ServiceProvider
     .fi-ta-header-toolbar {
         border-bottom: none !important;
     }
+    /* badge في الجدول */
+    .fi-ta-col .fi-badge {
+        background-color: #B91818 !important;
+        color: #ffffff !important;
+        border-color: #B91818 !important;
+    }
+
+    .fi-ta-col .fi-badge span {
+        color: #ffffff !important;
+    }
 
     /* --- تنسيق مربع البحث (Search Input) --- */
 
@@ -216,6 +226,13 @@ class FilamentStylesProvider extends ServiceProvider
     .fi-dropdown-panel span {
         color: #FFFFFF !important;
     }
+    select.fi-select-input {
+        color: #ffffff !important;
+        background-color: #727272 !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+
+
 
 /* --- الترقيم (Pagination) النهائي --- */
 
@@ -316,6 +333,110 @@ class FilamentStylesProvider extends ServiceProvider
     color: #ffffff !important;
 }
 
+
+/* --- Searchable Select Dropdown (fi-select) options panel --- */
+
+/* الحاوية الكاملة للـ dropdown */
+.fi-modal .choices__list--dropdown,
+.fi-modal .choices__list[aria-expanded],
+[x-ref="panel"],
+.fi-select-option-list-ctn,
+.choices__list--dropdown {
+    background-color: #2B2B2B !important;
+    border: 1px solid #444 !important;
+}
+
+/* خلفية قائمة الخيارات في الـ Select القابل للبحث */
+.fi-modal [role="listbox"],
+.fi-modal [role="option"],
+.fi-modal .fi-select-option {
+    background-color: #2B2B2B !important;
+    color: #ffffff !important;
+}
+
+/* hover على الخيارات */
+.fi-modal [role="option"]:hover,
+.fi-modal .fi-select-option:hover {
+    background-color: #B91818 !important;
+    color: #ffffff !important;
+}
+
+/* إصلاح الـ search input داخل الـ dropdown */
+.fi-modal [role="listbox"] input,
+.fi-modal .fi-select-option-search-input {
+    background-color: #727272 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/* إخفاء أي خلفية بيضاء في أسفل المودال */
+.fi-modal-footer,
+.fi-modal-actions {
+    background-color: #000000 !important;
+    border-top: 1px solid #333 !important;
+}
+
+/* الـ Select2 / Choices.js panel لو مستخدمة */
+.ts-dropdown,
+.ts-dropdown .option {
+    background-color: #2B2B2B !important;
+    color: #ffffff !important;
+}
+
+.ts-dropdown .option:hover,
+.ts-dropdown .option.active {
+    background-color: #B91818 !important;
+}
+
+/* Tom Select specifically (used by Filament) */
+.ts-wrapper .ts-dropdown {
+    background-color: #2B2B2B !important;
+    border: 1px solid #444 !important;
+}
+
+.ts-wrapper .ts-dropdown .option {
+    color: #ffffff !important;
+    background-color: #2B2B2B !important;
+}
+
+.ts-wrapper .ts-dropdown .option:hover,
+.ts-wrapper .ts-dropdown .active {
+    background-color: #B91818 !important;
+    color: #ffffff !important;
+}
+
+/* إصلاح الـ input الأبيض في أسفل المودال */
+.fi-modal .ts-control,
+.fi-modal .ts-wrapper .ts-control {
+    background-color: #727272 !important;
+    color: white !important;
+    border: none !important;
+}
+/* إصلاح لون النص داخل Tom Select input */
+.ts-wrapper .ts-control,
+.ts-wrapper .ts-control input,
+.ts-wrapper .ts-control .item {
+    color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+
+/* الـ placeholder */
+.ts-wrapper .ts-control input::placeholder {
+    color: #afafaf !important;
+}
+
+/* إصلاح search input داخل الـ dropdown ليكون أغمق */
+.ts-dropdown .ts-dropdown-content input,
+.ts-wrapper .ts-dropdown input {
+    background-color: #2B2B2B !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid #444 !important;
+}
+
+.ts-dropdown input::placeholder {
+    color: #afafaf !important;
+}
 
 
 
