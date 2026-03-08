@@ -18,4 +18,8 @@ class TypeController extends Controller
     {
         return $this->typeServices->list();
     }
+    public function listWithCategories()
+    {
+        return $this->typeServices->listWithCategories();
+    }
 }
