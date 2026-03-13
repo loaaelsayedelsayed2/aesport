@@ -67,6 +67,11 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class)->where('key', 'size');
     }
 
+    public function favs()
+    {
+        return $this->hasMany(ProductFav::class);
+    }
+
 
 
     protected static function booted()

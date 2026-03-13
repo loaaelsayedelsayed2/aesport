@@ -25,7 +25,7 @@ class ProductResources extends JsonResource
             'brand' => BrandsResource::collection($this->brand),
             'type' => TypesResources::collection($this->type),
             'sport' => SportsResource::collection($this->sports),
-            'is_fav' => 1,
+            'is_fav' => (bool) $this->fav,
         ];
     }
 }
