@@ -9,10 +9,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductRepository
 {
-    public function list1()
-    {
-        return Product::where('is_active', 1)->get();
-    }
     public function list()
     {
         $userId = auth('api')->user()->id;
@@ -26,6 +22,20 @@ class ProductRepository
             ->withCount([
                 'favs as fav' => fn($q) => $q->where('user_id', $userId)
             ])
+            ->with(['brand', 'category', 'type', 'sports', 'variants', 'images', 'reviews.user', 'reviews.images'])
+            ->get();
+    }
+    public function details($id)
+    {
+        return Product::where('id', $id)->with(['brand', 'category', 'type', 'sports', 'variants'])->first();
+    }
+
+    public function relatedProducts(Product $product)
+    {
+        return Product::where('is_active', 1)
+            ->whereHas('category', fn($q) => $q->whereIn('categories.id', $product->category->pluck('id')))
+            ->where('id', '!=', $product->id)
+            ->limit(10)
             ->with(['brand', 'category', 'type', 'sports'])
             ->get();
     }

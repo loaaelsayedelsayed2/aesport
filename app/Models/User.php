@@ -42,6 +42,11 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
