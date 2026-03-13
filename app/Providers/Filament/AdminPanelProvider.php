@@ -38,7 +38,7 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Red,
                 'gray' => Color::hex('#FFFFFF'),
                 'info' => Color::hex('#2186FF'),
-                'success' => Color::Green,
+                'success' => Color::hex('#34A853'),
                 'warning' => Color::Yellow,
                 'cancel' => Color::hex('#948e8e00')
             ])

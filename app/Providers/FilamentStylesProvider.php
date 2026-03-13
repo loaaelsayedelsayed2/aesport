@@ -356,7 +356,17 @@ class FilamentStylesProvider extends ServiceProvider
 
 /* hover على الخيارات */
 .fi-modal [role="option"]:hover,
-.fi-modal .fi-select-option:hover {
+.fi-modal .fi-select-option:hover,
+.fi-select-option:hover,
+.fi-select-option:focus,
+.fi-select-option[aria-selected="true"] {
+    background-color: #B91818 !important;
+    color: #ffffff !important;
+}
+
+[role="option"]:hover,
+[role="option"]:focus,
+[role="option"][aria-selected="true"] {
     background-color: #B91818 !important;
     color: #ffffff !important;
 }
@@ -379,14 +389,20 @@ class FilamentStylesProvider extends ServiceProvider
 
 /* الـ Select2 / Choices.js panel لو مستخدمة */
 .ts-dropdown,
-.ts-dropdown .option {
+.ts-dropdown .option,
+.ts-dropdown [data-selectable]{
     background-color: #2B2B2B !important;
     color: #ffffff !important;
 }
 
 .ts-dropdown .option:hover,
-.ts-dropdown .option.active {
+.ts-dropdown .option.active,
+.ts-wrapper .ts-dropdown .option:hover,
+.ts-dropdown [data-selectable].active,
+.ts-dropdown [data-selectable]:hover
+.ts-wrapper .ts-dropdown .active {
     background-color: #B91818 !important;
+    color: #ffffff !important;
 }
 
 /* Tom Select specifically (used by Filament) */
@@ -400,8 +416,8 @@ class FilamentStylesProvider extends ServiceProvider
     background-color: #2B2B2B !important;
 }
 
-.ts-wrapper .ts-dropdown .option:hover,
-.ts-wrapper .ts-dropdown .active {
+.ts-dropdown .option[data-selectable]:hover,
+.ts-dropdown .option[data-selectable].active {
     background-color: #B91818 !important;
     color: #ffffff !important;
 }
@@ -415,14 +431,21 @@ class FilamentStylesProvider extends ServiceProvider
 }
 /* إصلاح لون النص داخل Tom Select input */
 .ts-wrapper .ts-control,
-.ts-wrapper .ts-control input,
 .ts-wrapper .ts-control .item {
     color: #ffffff !important;
-    background-color: transparent !important;
+    background-color: #3a3a3a !important;
 }
-
-
+.ts-wrapper.has-items .ts-control {
+    background-color: #4e4b4b !important;
+}
+.ts-wrapper .ts-control .item .ts-remove {
+    color: #ffffff !important;
+}
 /* الـ placeholder */
+.ts-wrapper .ts-control input {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
 .ts-wrapper .ts-control input::placeholder {
     color: #afafaf !important;
 }
@@ -546,7 +569,19 @@ class FilamentStylesProvider extends ServiceProvider
         color: #ffffff !important;
         border-radius: 8px !important;
     }
+.fi-select-input-wrp .ts-control .item,
+.ts-control .item {
+    background-color: #3a3a3a !important;
+    color: #ffffff !important;
+    border: 1px solid #555 !important;
+    border-radius: 4px !important;
+}
 
+.ts-control .item a,
+.ts-control .item .remove,
+.ts-control .item span {
+    color: #ffffff !important;
+}
 
 .color-circles-wrapper {
     display: flex;
@@ -742,328 +777,17 @@ class FilamentStylesProvider extends ServiceProvider
 .size-picker-repeater {
     display: none !important;
 }
+.choices__item--selectable {
+    color: #f3f4f6 !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background-color: #374151 !important;
+    color: #f3f4f6 !important;
+}
 </style>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
 
-        // =================== STATE ===================
-        const defaultColors = ['#cc0000', '#151515', '#1a56db', '#34A853', '#FFFFFF', '#832D2D', '#E44646'];
-        const defaultSizes  = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '14', '16'];
-
-        let selectedColors = [...defaultColors];
-        let selectedSizes  = [...defaultSizes];
-
-        // =================== REPEATER HELPERS ===================
-        function getRepeaterAddBtn(repeaterClass) {
-            const repeater = document.querySelector(repeaterClass);
-            if (!repeater) return null;
-            // Filament add button
-            return repeater.querySelector('button[wire\\:click*="addItem"]')
-                || repeater.querySelector('button[x-on\\:click*="addItem"]')
-                || repeater.querySelector('[wire\\:click*="addItem"]');
-        }
-
-        function addColorToRepeater(color, callback) {
-            const addBtn = getRepeaterAddBtn('.color-picker-repeater');
-            if (!addBtn) return;
-
-            addBtn.click();
-
-            // انتظر Livewire يضيف الـ item ويعمل re-render
-            setTimeout(() => {
-                const repeater = document.querySelector('.color-picker-repeater');
-                if (!repeater) return;
-
-                const inputs = repeater.querySelectorAll('input.color-value-input');
-                const lastInput = inputs[inputs.length - 1];
-
-                if (lastInput) {
-                    // استخدم nativeInputValueSetter عشان Alpine يمسك القيمة
-                    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-                        window.HTMLInputElement.prototype, 'value'
-                    ).set;
-                    nativeInputValueSetter.call(lastInput, color);
-                    lastInput.dispatchEvent(new Event('input', { bubbles: true }));
-                    lastInput.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-
-                if (callback) callback();
-            }, 600);
-        }
-
-        function addSizeToRepeater(size, callback) {
-            const addBtn = getRepeaterAddBtn('.size-picker-repeater');
-            if (!addBtn) return;
-
-            addBtn.click();
-
-            setTimeout(() => {
-                const repeater = document.querySelector('.size-picker-repeater');
-                if (!repeater) return;
-
-                const inputs = repeater.querySelectorAll('input.size-value-input');
-                const lastInput = inputs[inputs.length - 1];
-
-                if (lastInput) {
-                    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-                        window.HTMLInputElement.prototype, 'value'
-                    ).set;
-                    nativeInputValueSetter.call(lastInput, size);
-                    lastInput.dispatchEvent(new Event('input', { bubbles: true }));
-                    lastInput.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-
-                if (callback) callback();
-            }, 600);
-        }
-
-        // أضف الألوان الافتراضية واحد واحد بـ queue
-        function populateDefaults() {
-            let colorQueue = [...defaultColors];
-            let sizeQueue  = [...defaultSizes];
-
-            function nextColor() {
-                if (colorQueue.length === 0) return;
-                const color = colorQueue.shift();
-                addColorToRepeater(color, nextColor);
-            }
-
-            function nextSize() {
-                if (sizeQueue.length === 0) return;
-                const size = sizeQueue.shift();
-                addSizeToRepeater(size, nextSize);
-            }
-
-            nextColor();
-            nextSize();
-        }
-
-        // =================== COLOR PICKER UI ===================
-        function initColorPicker() {
-            const repeater = document.querySelector('.color-picker-repeater');
-            if (!repeater || document.querySelector('.color-circles-wrapper')) return;
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'color-circles-wrapper';
-
-            const popup = document.createElement('div');
-            popup.className = 'color-popup';
-            popup.innerHTML = `
-                <input type="color" id="colorPickerInput" value="#ff0000">
-                <button class="color-popup-btn">Add Color</button>
-            `;
-            document.body.appendChild(popup);
-
-            defaultColors.forEach(color => addCircle(color, wrapper));
-
-            const addBtn = document.createElement('div');
-            addBtn.className = 'color-circle-add';
-            addBtn.innerHTML = '+';
-            addBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                const rect = addBtn.getBoundingClientRect();
-                popup.style.display = 'block';
-                popup.style.top  = (rect.bottom + 8) + 'px';
-                popup.style.left = rect.left + 'px';
-            });
-
-            wrapper.appendChild(addBtn);
-            repeater.parentNode.insertBefore(wrapper, repeater);
-
-            popup.querySelector('.color-popup-btn').addEventListener('click', function () {
-                const color = popup.querySelector('#colorPickerInput').value;
-                if (!selectedColors.includes(color)) {
-                    selectedColors.push(color);
-                    addCircle(color, wrapper, addBtn);
-                    addColorToRepeater(color);
-                }
-                popup.style.display = 'none';
-            });
-
-            document.addEventListener('click', () => popup.style.display = 'none');
-            popup.addEventListener('click', e => e.stopPropagation());
-        }
-
-        function addCircle(color, wrapper, before = null) {
-            const circle = document.createElement('div');
-            circle.className = 'color-circle';
-            circle.style.backgroundColor = color;
-            circle.title = color;
-            circle.style.position = 'relative';
-
-            const deleteBtn = document.createElement('span');
-            deleteBtn.innerHTML = '×';
-            deleteBtn.style.cssText = `
-                position: absolute; top: -4px; right: -4px;
-                width: 16px; height: 16px; background: #B91818;
-                color: white; border-radius: 50%; font-size: 11px;
-                line-height: 16px; text-align: center;
-                display: none; cursor: pointer; z-index: 10;
-            `;
-
-            deleteBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                // احذف من الـ Repeater
-                const repeater = document.querySelector('.color-picker-repeater');
-                if (repeater) {
-                    const inputs = repeater.querySelectorAll('input.color-value-input');
-                    inputs.forEach(input => {
-                        if (input.value === color) {
-                            const item = input.closest('[wire\\:key]')
-                                || input.closest('.fi-fo-repeater-item');
-                            if (item) {
-                                const delBtn = item.querySelector('button[wire\\:click*="deleteItem"]')
-                                    || item.querySelector('button[x-on\\:click*="deleteItem"]');
-                                if (delBtn) delBtn.click();
-                            }
-                        }
-                    });
-                }
-                selectedColors = selectedColors.filter(c => c !== color);
-                circle.remove();
-            });
-
-            circle.appendChild(deleteBtn);
-            circle.addEventListener('mouseenter', () => deleteBtn.style.display = 'block');
-            circle.addEventListener('mouseleave', () => deleteBtn.style.display = 'none');
-
-            if (before) wrapper.insertBefore(circle, before);
-            else wrapper.appendChild(circle);
-        }
-
-        // =================== SIZE PICKER UI ===================
-        function initSizePicker() {
-            const repeater = document.querySelector('.size-picker-repeater');
-            if (!repeater || document.querySelector('.sizes-wrapper')) return;
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'sizes-wrapper';
-
-            const popup = document.createElement('div');
-            popup.className = 'size-popup';
-            popup.innerHTML = `
-                <input type="text" id="sizeInput" placeholder="e.g. 42, 3XL ...">
-                <button class="size-popup-btn">Add Size</button>
-            `;
-            document.body.appendChild(popup);
-
-            defaultSizes.forEach(size => addSizeBox(size, wrapper));
-
-            const addBtn = document.createElement('div');
-            addBtn.className = 'size-box-add';
-            addBtn.innerHTML = '+';
-            addBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                const rect = addBtn.getBoundingClientRect();
-                popup.style.display = 'block';
-                popup.style.top  = (rect.bottom + 8) + 'px';
-                popup.style.left = rect.left + 'px';
-                setTimeout(() => popup.querySelector('#sizeInput').focus(), 100);
-            });
-
-            wrapper.appendChild(addBtn);
-            repeater.parentNode.insertBefore(wrapper, repeater);
-
-            popup.querySelector('.size-popup-btn').addEventListener('click', function () {
-                const val = popup.querySelector('#sizeInput').value.trim().toUpperCase();
-                if (val && !selectedSizes.includes(val)) {
-                    selectedSizes.push(val);
-                    addSizeBox(val, wrapper, addBtn);
-                    addSizeToRepeater(val);
-                    popup.querySelector('#sizeInput').value = '';
-                    popup.style.display = 'none';
-                }
-            });
-
-            popup.querySelector('#sizeInput').addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') popup.querySelector('.size-popup-btn').click();
-            });
-
-            document.addEventListener('click', () => popup.style.display = 'none');
-            popup.addEventListener('click', e => e.stopPropagation());
-        }
-
-        function addSizeBox(size, wrapper, before = null) {
-            const box = document.createElement('div');
-            box.className = 'size-box selected';
-            box.dataset.size = size;
-            box.innerHTML = `${size}<span class="delete-size">×</span>`;
-
-            box.querySelector('.delete-size').addEventListener('click', function (e) {
-                e.stopPropagation();
-                const repeater = document.querySelector('.size-picker-repeater');
-                if (repeater) {
-                    const inputs = repeater.querySelectorAll('input.size-value-input');
-                    inputs.forEach(input => {
-                        if (input.value === size) {
-                            const item = input.closest('[wire\\:key]')
-                                || input.closest('.fi-fo-repeater-item');
-                            if (item) {
-                                const delBtn = item.querySelector('button[wire\\:click*="deleteItem"]')
-                                    || item.querySelector('button[x-on\\:click*="deleteItem"]');
-                                if (delBtn) delBtn.click();
-                            }
-                        }
-                    });
-                }
-                selectedSizes = selectedSizes.filter(s => s !== size);
-                box.remove();
-            });
-
-            if (before) wrapper.insertBefore(box, before);
-            else wrapper.appendChild(box);
-        }
-
-        // =================== INIT ===================
-        let initTimeout = null;
-        let initialized = false;
-
-        function initAll() {
-            const oldColors = document.querySelector('.color-circles-wrapper');
-            if (oldColors) oldColors.remove();
-
-            const oldSizes = document.querySelector('.sizes-wrapper');
-            if (oldSizes) oldSizes.remove();
-
-            selectedColors = [...defaultColors];
-            selectedSizes  = [...defaultSizes];
-
-            initColorPicker();
-            initSizePicker();
-
-            // اضيف الافتراضيات مرة واحدة بس
-            if (!initialized) {
-                initialized = true;
-                setTimeout(populateDefaults, 500);
-            }
-        }
-
-        function safeInit() {
-            if (initTimeout) clearTimeout(initTimeout);
-            initTimeout = setTimeout(initAll, 400);
-        }
-
-        setTimeout(initAll, 1200);
-
-        document.addEventListener('livewire:update',  safeInit);
-        document.addEventListener('livewire:updated', safeInit);
-        document.addEventListener('livewire:morph',   safeInit);
-        document.addEventListener('livewire:morphed', safeInit);
-
-        let observing = true;
-        const observer = new MutationObserver(() => {
-            if (!observing) return;
-            if (!document.querySelector('.color-circles-wrapper') || !document.querySelector('.sizes-wrapper')) {
-                observing = false;
-                safeInit();
-                setTimeout(() => observing = true, 1000);
-            }
-        });
-
-        observer.observe(document.body, { childList: true, subtree: true });
-    });
-</script>
 
 HTML
         );

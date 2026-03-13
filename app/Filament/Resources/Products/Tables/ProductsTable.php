@@ -9,6 +9,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -29,6 +30,7 @@ class ProductsTable
                     ->circular(),
                 TextColumn::make('name')
                     ->label('Name')
+                    ->limit(10)
                     ->searchable(),
                 TextColumn::make('model_number')
                     ->label('SKU'),
@@ -41,7 +43,16 @@ class ProductsTable
                 TextColumn::make('price')
                     ->label('Price'),
                 TextColumn::make('in_stock')
-                    ->label('Status'),
+                    ->label('Status')
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => match((int) $state) {
+                        0 => 'Out of Stock',
+                        1 => 'In Stock',
+                    })
+                    ->color(fn ($state) => match((int) $state) {
+                        0 => 'danger',
+                        1 => 'success',
+                    }),
                 ToggleColumn::make('is_active')
                     ->label('Is Active'),
             ])

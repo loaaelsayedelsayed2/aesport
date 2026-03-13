@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
+use App\Filament\Fields\ColorPickerField;
+use App\Filament\Fields\SizePickerField;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -29,7 +30,7 @@ class ProductsForm
                     ->columnSpan(1)
                     ->schema([
                         FileUpload::make('main_image')
-                            ->label('main_image')
+                            ->label('Main Image')
                             ->image()
                             ->required()
                             ->imageEditor()
@@ -37,7 +38,6 @@ class ProductsForm
                             ->columnSpanFull()
                             ->disk('public')
                             ->directory('products')
-                            ->extraAttributes(['class' => 'dark-upload'])
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg']),
 
                         Repeater::make('images')
@@ -60,31 +60,16 @@ class ProductsForm
                             ->columnSpanFull(),
 
                         Textarea::make('description')
-                            ->label('description')
+                            ->label('Description')
                             ->rows(5)
                             ->required()
                             ->placeholder('Enter product description...')
                             ->columnSpanFull(),
 
-                        Repeater::make('color_variants')
-                            ->relationship(
-                                name: 'variants',
-                                modifyQueryUsing: fn($query) => $query->where('key', 'color')
-                            )
-                            ->label('Product Color')
-                            ->schema([
-                                Hidden::make('key')->default('color'),
-                                TextInput::make('value')
-                                    ->label('Color')
-                                    ->hiddenLabel()
-                                    ->extraAttributes(['class' => 'color-value-input']),
-                            ])
-                            ->grid(8)
-                            ->addActionLabel('+')
-                            ->minItems(0)
-                            ->defaultItems(0)
-                            ->columnSpanFull()
-                            ->extraAttributes(['class' => 'color-picker-repeater']),
+                        // ✅ Color picker — replaces Repeater variant color
+                        ColorPickerField::make('colors')
+                            ->label('Product Colors')
+                            ->columnSpanFull(),
                     ]),
 
                 // =================== RIGHT COLUMN ===================
@@ -101,13 +86,13 @@ class ProductsForm
                             Select::make('brand')
                                 ->label('Brand')
                                 ->relationship('brand', 'name')
-                                ->placeholder('choose brand')
+                                ->placeholder('Choose brand')
                                 ->searchable()
                                 ->required()
                                 ->preload(),
 
                             Select::make('type')
-                                ->label('Gender/Type')
+                                ->label('Gender / Type')
                                 ->relationship('type', 'name')
                                 ->multiple()
                                 ->searchable()
@@ -126,7 +111,7 @@ class ProductsForm
                             Select::make('sports')
                                 ->label('Sports')
                                 ->relationship('sports', 'name')
-                                ->placeholder('choose sports')
+                                ->placeholder('Choose sports')
                                 ->multiple()
                                 ->searchable()
                                 ->preload(),
@@ -145,24 +130,10 @@ class ProductsForm
                                 ->numeric(),
                         ]),
 
-                        Repeater::make('size_variants')
-                            ->relationship(
-                                name: 'variants',
-                                modifyQueryUsing: fn($query) => $query->where('key', 'size')
-                            )
-                            ->label('Product Size')
-                            ->schema([
-                                Hidden::make('key')->default('size'),
-                                TextInput::make('value')
-                                    ->label('Size')
-                                    ->hiddenLabel()
-                                    ->extraAttributes(['class' => 'size-value-input']),
-                            ])
-                            ->minItems(0)
-                            ->defaultItems(0)
-                            ->addActionLabel('+')
-                            ->columnSpanFull()
-                            ->extraAttributes(['class' => 'size-picker-repeater']),
+                        // ✅ Size picker — replaces Repeater variant size
+                        SizePickerField::make('sizes')
+                            ->label('Product Sizes')
+                            ->columnSpanFull(),
 
                         Grid::make(2)->schema([
                             Select::make('in_stock')
@@ -182,7 +153,7 @@ class ProductsForm
                         ]),
 
                         Textarea::make('additional_info')
-                            ->label('additional_info')
+                            ->label('Additional Info')
                             ->rows(3)
                             ->placeholder('Free shipping & returns: On all orders over $150')
                             ->columnSpanFull(),
