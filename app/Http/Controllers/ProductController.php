@@ -33,4 +33,8 @@ class ProductController extends Controller
     {
         return $this->productService->addReview($request);
     }
+    public function wishList()
+    {
+        return $this->productService->wishList();
+    }
 }

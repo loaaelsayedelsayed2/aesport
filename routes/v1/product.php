@@ -18,5 +18,6 @@ Route::prefix('v1/product')->group(function () {
         Route::get('/details/{id}', [ProductController::class, 'details']);
         Route::post('/add-favorites', [ProductController::class, 'addFavorites']);
         Route::post('/add-review', [ProductController::class, 'addReview']);
+        Route::get('/wish-list', [ProductController::class, 'wishList']);
     });
 });

@@ -6,6 +6,7 @@ use App\Http\Resources\ProductDetailsResources;
 use App\Http\Resources\ProductResources;
 use App\Http\Resources\TypesResources;
 use App\Http\Resources\TypeWithCategories;
+use App\Http\Resources\WishListProductResources;
 use App\Repositories\ProductFavRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ReviwesRepository;
@@ -69,6 +70,15 @@ class ProductServices
         try {
             $this->reviewRepo->create($request);
             return $this->success([], 'add review success');
+        } catch (Exception $e) {
+            return $this->fail('fail in request' . $e);
+        }
+    }
+    public function wishList()
+    {
+        try {
+            $products = $this->ProductFavRepo->list();
+            return $this->success(WishListProductResources::collection($products), 'list product in wishlist success');
         } catch (Exception $e) {
             return $this->fail('fail in request' . $e);
         }
