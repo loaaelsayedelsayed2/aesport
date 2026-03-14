@@ -26,10 +26,10 @@ class ProductServices
         $this->ProductFavRepo = $ProductFavRepo;
         $this->reviewRepo = $reviewRepo;
     }
-    public function list()
+    public function list($request)
     {
         try {
-            $types = $this->productrepo->list();
+            $types = $this->productrepo->list($request);
             return $this->success(ProductResources::collection($types), 'list types success');
         } catch (Exception $e) {
             return $this->fail('fail in show list' . $e);

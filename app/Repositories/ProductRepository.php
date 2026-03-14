@@ -4,7 +4,9 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Models\ProductFav;
+use App\Models\Review;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductRepository
@@ -18,7 +20,26 @@ class ProductRepository
                 AllowedFilter::exact('category', 'category.id'),
                 AllowedFilter::exact('type', 'type.id'),
                 AllowedFilter::exact('sport', 'sports.id'),
+                AllowedFilter::callback('price_from', fn($q, $v) => $q->where('price', '>=', $v)),
+                AllowedFilter::callback('price_to',   fn($q, $v) => $q->where('price', '<=', $v)),
+                AllowedFilter::partial('search', 'name'),
             ])
+            ->allowedSorts([
+                'price',
+                '-price',
+                AllowedSort::callback('rating', function ($q, $descending) {
+                    $q->orderBy(
+                        Review::selectRaw('COALESCE(AVG(rating), 0)')
+                            ->whereColumn('product_id', 'products.id'),
+                        $descending ? 'desc' : 'asc'
+                    );
+                }),
+                AllowedSort::callback('top_seller', function ($q, $descending) {
+                    $q->orderBy('orders_count', 'desc');
+                }),
+                'created_at',
+            ])
+            ->withAvg('reviews', 'rating')
             ->withCount([
                 'favs as fav' => fn($q) => $q->where('user_id', $userId)
             ])

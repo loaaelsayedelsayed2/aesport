@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ListProductsRequest;
 use App\Http\Requests\ProductFavRequest;
 use App\Http\Requests\ProductReviewRequest;
 use App\Models\Product;
@@ -16,9 +17,9 @@ class ProductController extends Controller
     ) {
         $this->productService = $productService;
     }
-    public function list()
+    public function list(ListProductsRequest $request)
     {
-        return $this->productService->list();
+        return $this->productService->list($request->validated());
     }
     public function addFavorites(ProductFavRequest $request)
     {
