@@ -16,5 +16,8 @@ class CartRepository
             "user_id" => auth('api')->user()->id,
         ],$data);
     }
+    public function updateCart($data){
+       return Cart::where('user_id',auth('api')->user()->id)->update($data);
+    }
 
 }

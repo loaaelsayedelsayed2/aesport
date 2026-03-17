@@ -8,14 +8,15 @@ class CartItemsRepository
 {
     public function createItem($request, $product, $cart)
     {
+        $qty = $request['quantity'] ?? 1;
         return CartItem::create([
             "cart_id" => $cart->id,
             "product_id" => $product->id,
-            "quantity" => $request['quantity'],
+            "quantity" => $qty,
             "price" => $product->price,
-            "size_variant_id" => $request['size'],
-            "color_variant_id" => $request['color'],
-            "total_price" => $product->price * $request['quantity']
+            "size_variant_id" => $request['size'] ?? null,
+            "color_variant_id" => $request['color'] ?? null,
+            "total_price" => $product->price * $qty
         ]);
     }
     public function updateQuantity($qty) {}

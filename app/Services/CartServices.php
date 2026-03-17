@@ -57,7 +57,7 @@ class CartServices
                 "sub_total" => $subTotal,
                 "quantity" => $qty ?? 1,
                 // "delivery_fee", // ToDo:delivery fees
-                "final_total" => $product->product
+                "final_total" => $product->price
             ];
             $cart = $this->cartRepo->create($data);
         } else {
@@ -74,7 +74,15 @@ class CartServices
             $request['color'] ?? null
         );
         if (!$getCartItem) {
-            return $cartItem = $this->cartItemRepo->createItem($request, $product, $cart);
+            $cartItem = $this->cartItemRepo->createItem($request, $product, $cart);
+            $qty = $request['quantity'] ?? 1;
+            $updateData = [
+                "sub_total" => cartTotal($product,$qty),
+                "quantity" => $qty,
+                "final_total" => cartTotal($product,$qty)
+            ];
+            $updateCart = $this->cartRepo->updateCart($updateData);
+            return;
         } else {
             return $this->fail([], 'this product aleady exsist');
         }
