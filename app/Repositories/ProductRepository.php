@@ -41,7 +41,12 @@ class ProductRepository
             ])
             ->withAvg('reviews', 'rating')
             ->withCount([
-                'favs as fav' => fn($q) => $q->where('user_id', $userId)
+                'favs as fav' => fn($q) => $q->where('user_id', $userId),
+                'cartItems as in_cart' => function ($q) use ($userId) {
+                    $q->whereHas('cart', function ($q2) use ($userId) {
+                        $q2->where('user_id', $userId);
+                    });
+                }
             ])
             ->with(['brand', 'category', 'type', 'sports', 'variants', 'images', 'reviews.user', 'reviews.images'])
             ->get();
@@ -59,5 +64,10 @@ class ProductRepository
             ->limit(10)
             ->with(['brand', 'category', 'type', 'sports'])
             ->get();
+    }
+
+    public function getById($id)
+    {
+        return Product::find($id);
     }
 }

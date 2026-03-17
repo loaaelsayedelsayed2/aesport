@@ -77,6 +77,11 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'product_id');
+    }
+
     protected static function booted()
     {
         static::creating(function ($product) {
