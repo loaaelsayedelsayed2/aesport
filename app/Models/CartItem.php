@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CartItem extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         "cart_id",
         "product_id",
@@ -13,7 +15,8 @@ class CartItem extends Model
         "price",
         "size_variant_id",
         "color_variant_id",
-        "total_price"
+        "total_price",
+        'deleted_at'
     ];
 
     public function product()

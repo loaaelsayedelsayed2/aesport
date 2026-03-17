@@ -19,4 +19,7 @@ class CartController extends Controller
     public function showCart(){
         return $this->cartservices->showCart();
     }
+    public function removeFromCart($id){
+        return $this->cartservices->removeFromCart($id);
+    }
 }

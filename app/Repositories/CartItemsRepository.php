@@ -28,4 +28,13 @@ class CartItemsRepository
             ->when($colorId, fn($q) => $q->where('color_variant_id', $colorId))
             ->first();
     }
+    public function getItemById($itemId)
+    {
+        return CartItem::where('id', $itemId)->first();
+    }
+    public function removeFromCart($itemId)
+    {
+        $item = $this->getItemById($itemId);
+        return $item->delete();
+    }
 }

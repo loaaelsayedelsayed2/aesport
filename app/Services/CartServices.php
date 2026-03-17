@@ -79,7 +79,7 @@ class CartServices
             $qty = $request['quantity'] ?? 1;
             $updateData = [
                 "sub_total" => cartTotal($product, $qty),
-                "quantity" => $qty,
+                "quantity" => $cart->quantity + 1,
                 "final_total" => cartTotal($product, $qty)
             ];
             $updateCart = $this->cartRepo->updateCart($updateData);
@@ -96,6 +96,29 @@ class CartServices
             return $this->success(new CartsResource($cart), 'show cart success');
         } catch (Exception $e) {
             return $this->fail('fail in show cart' . $e);
+        }
+    }
+    public function removeFromCart($id)
+    {
+        DB::beginTransaction();
+        try {
+            $item = $this->cartItemRepo->getItemById($id);
+            $cart = $this->cartRepo->showCart();
+            if(!$item){
+                return $this->notFound('this item not found in cart');
+            }
+            $updateData = [
+                "sub_total" => $cart->sub_total - $item->total_price,
+                "quantity" => $cart->quantity - 1,
+                "final_total" => $cart->final_total - $item->total_price
+            ];
+            $this->cartRepo->updateCart($updateData);
+            $this->cartItemRepo->removeFromCart($id);
+            DB::commit();
+            return $this->success([], 'remove from cart success');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->fail('fail in remove from cart' . $e);
         }
     }
 }
