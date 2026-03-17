@@ -19,7 +19,7 @@ class CartItemsRepository
             "total_price" => $product->price * $qty
         ]);
     }
-    public function updateQuantity($qty) {}
+
     public function getItem($productId, $cart, $sizeId = null, $colorId = null)
     {
         return CartItem::where('cart_id', $cart->id)
@@ -36,5 +36,10 @@ class CartItemsRepository
     {
         $item = $this->getItemById($itemId);
         return $item->delete();
+    }
+
+    public function updateQuantity($data,$itemId) {
+        $item = $this->getItemById($itemId);
+        return $item->update($data);
     }
 }

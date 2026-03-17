@@ -121,4 +121,34 @@ class CartServices
             return $this->fail('fail in remove from cart' . $e);
         }
     }
+    public function changeQuantity($id,$request)
+    {
+        DB::beginTransaction();
+        try {
+            $cart = $this->cartRepo->showCart();
+            $item = $this->cartItemRepo->getItemById($id);
+            if(!$item){
+                return $this->notFound('this item not found in cart');
+            }
+            $newSubTotal = $item->product->price * $request['qty'];
+            $newFinalTotal = $item->product->price * $request['qty'];
+            $data = [
+                "sub_total" => ($cart->sub_total - $item->total_price) + $newSubTotal,
+                "quantity" => $request['qty'],
+                "final_total" => ($cart->final_total - $item->total_price) + $newFinalTotal
+            ];
+            $dataItem = [
+                "price" => $newSubTotal,
+                "quantity" => $request['qty'],
+                "total_price" => $newFinalTotal
+            ];
+            $this->cartRepo->updateCart($data);
+            $this->cartItemRepo->updateQuantity($dataItem,$id);
+            DB::commit();
+            return $this->success([], 'change Quantity from cart success');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->fail('fail in change Quantity from cart' . $e);
+        }
+    }
 }

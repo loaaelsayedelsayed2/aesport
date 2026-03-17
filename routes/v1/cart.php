@@ -12,4 +12,5 @@ Route::prefix('v1/cart')->middleware('auth:api')->group(function () {
     Route::post('/add', [CartController::class, 'addToCart']);
     Route::get('/show', [CartController::class, 'showCart']);
     Route::delete('/remove/{id}', [CartController::class, 'removeFromCart']);
+    Route::post('/change-quantity/{id}', [CartController::class, 'changeQuantity']);
 });

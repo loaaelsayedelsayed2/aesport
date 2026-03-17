@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddToCartRequest;
+use App\Http\Requests\ChangeQuantityRequest;
 use App\Services\CartServices;
 
 class CartController extends Controller
@@ -21,5 +22,8 @@ class CartController extends Controller
     }
     public function removeFromCart($id){
         return $this->cartservices->removeFromCart($id);
+    }
+    public function changeQuantity($id,ChangeQuantityRequest $request){
+        return $this->cartservices->changeQuantity($id,$request);
     }
 }
