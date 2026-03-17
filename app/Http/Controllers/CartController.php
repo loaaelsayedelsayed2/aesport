@@ -16,4 +16,7 @@ class CartController extends Controller
     public function addToCart(AddToCartRequest $request){
         return $this->cartservices->addToCart($request->validated());
     }
+    public function showCart(){
+        return $this->cartservices->showCart();
+    }
 }

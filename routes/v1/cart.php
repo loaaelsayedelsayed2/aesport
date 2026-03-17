@@ -10,4 +10,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/cart')->middleware('auth:api')->group(function () {
     Route::post('/add', [CartController::class, 'addToCart']);
+    Route::get('/show', [CartController::class, 'showCart']);
 });

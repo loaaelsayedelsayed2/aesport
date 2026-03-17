@@ -16,4 +16,8 @@ class Cart extends Model
         "coupon_discount",
         "final_total"
     ];
+
+    public function items(){
+        return $this->hasMany(CartItem::class);
+    }
 }

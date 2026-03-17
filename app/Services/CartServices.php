@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\CartsResource;
 use App\Repositories\CartItemsRepository;
 use App\Repositories\CartRepository;
 use App\Repositories\ProductRepository;
@@ -77,14 +78,24 @@ class CartServices
             $cartItem = $this->cartItemRepo->createItem($request, $product, $cart);
             $qty = $request['quantity'] ?? 1;
             $updateData = [
-                "sub_total" => cartTotal($product,$qty),
+                "sub_total" => cartTotal($product, $qty),
                 "quantity" => $qty,
-                "final_total" => cartTotal($product,$qty)
+                "final_total" => cartTotal($product, $qty)
             ];
             $updateCart = $this->cartRepo->updateCart($updateData);
             return;
         } else {
             return $this->fail([], 'this product aleady exsist');
+        }
+    }
+
+    public function showCart()
+    {
+        try {
+            $cart = $this->cartRepo->showCart();
+            return $this->success(new CartsResource($cart), 'show cart success');
+        } catch (Exception $e) {
+            return $this->fail('fail in show cart' . $e);
         }
     }
 }
