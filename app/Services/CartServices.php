@@ -5,26 +5,30 @@ namespace App\Services;
 use App\Http\Resources\CartsResource;
 use App\Repositories\CartItemsRepository;
 use App\Repositories\CartRepository;
+use App\Repositories\CouponRepository;
 use App\Repositories\ProductRepository;
 use App\Traits\ApiResponse;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use function App\Helpers\calcAmountCoupon;
 use function App\Helpers\cartTotal;
 
 class CartServices
 {
     use ApiResponse;
-    protected $cartRepo, $productRepo, $cartItemRepo;
+    protected $cartRepo, $productRepo, $cartItemRepo, $couponRepo;
     public function __construct(
         CartRepository $cartRepo,
         CartItemsRepository $cartItemRepo,
         ProductRepository $productRepo,
+        CouponRepository $couponRepo,
     ) {
         $this->cartRepo = $cartRepo;
         $this->productRepo = $productRepo;
         $this->cartItemRepo = $cartItemRepo;
+        $this->couponRepo = $couponRepo;
     }
     public function addToCart($request)
     {
@@ -104,7 +108,7 @@ class CartServices
         try {
             $item = $this->cartItemRepo->getItemById($id);
             $cart = $this->cartRepo->showCart();
-            if(!$item){
+            if (!$item) {
                 return $this->notFound('this item not found in cart');
             }
             $updateData = [
@@ -121,13 +125,13 @@ class CartServices
             return $this->fail('fail in remove from cart' . $e);
         }
     }
-    public function changeQuantity($id,$request)
+    public function changeQuantity($id, $request)
     {
         DB::beginTransaction();
         try {
             $cart = $this->cartRepo->showCart();
             $item = $this->cartItemRepo->getItemById($id);
-            if(!$item){
+            if (!$item) {
                 return $this->notFound('this item not found in cart');
             }
             $newSubTotal = $item->product->price * $request['qty'];
@@ -143,12 +147,51 @@ class CartServices
                 "total_price" => $newFinalTotal
             ];
             $this->cartRepo->updateCart($data);
-            $this->cartItemRepo->updateQuantity($dataItem,$id);
+            $this->cartItemRepo->updateQuantity($dataItem, $id);
             DB::commit();
             return $this->success([], 'change Quantity from cart success');
         } catch (Exception $e) {
             DB::rollBack();
             return $this->fail('fail in change Quantity from cart' . $e);
+        }
+    }
+    public function useCoupon($request)
+    {
+        try {
+            $cart = $this->cartRepo->showCart();
+            if (!$cart) {
+                return $this->notFound('this user not have cart');
+            }
+            if ($cart->coupon_id != null) {
+                return $this->fail('you have already applied a coupon to this cart');
+            }
+            $coupon = $this->couponRepo->getByCodeName($request);
+            if (!$coupon) {
+                return $this->notFound('this coupon not found');
+            }
+            if (!$coupon->is_active) {
+                return $this->fail('this coupon is inactive');
+            }
+            $now = now();
+            if ($now->lt($coupon->start_date) || $now->gt($coupon->expiry_date)) {
+                return $this->fail('this coupon is expired');
+            }
+            if (!is_null($coupon->usage_limit) && $coupon->limit_used >= $coupon->usage_limit) {
+                return $this->fail('this coupon has reached its usage limit');
+            }
+            $discountAmount = calcAmountCoupon($coupon->discount_type, (float) $coupon->discount_amount, (float) $cart->sub_total);
+            if ($discountAmount >= (float) $cart->sub_total) {
+                return $this->fail('coupon value exceeds or equals cart total — cart cannot be free');
+            }
+            $cart->update([
+                'coupon_id'       => $coupon->id,
+                'coupon_discount' => $discountAmount,
+                'final_total'   => (float) $cart->final_total - (float) $discountAmount,
+            ]);
+            $coupon->increment('limit_used');
+            return $this->success([], 'use coupon in cart success');
+        } catch (Exception $e) {
+            return $this->fail('fail in use coupon in cart' . $e);
         }
     }
 }

@@ -14,6 +14,7 @@ class Coupon extends Model
         "is_active",
         "usage_limit",
         "type",
-        'start_date'
+        'start_date',
+        'limit_used',
     ];
 }
