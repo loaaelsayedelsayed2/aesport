@@ -20,9 +20,10 @@ class CartItemsResource extends JsonResource
             "product_name" => $this->product->name,
             "product_image" => asset($this->product->main_image),
             "quantity" => $this->quantity,
-            "price" => $this->total_price,
+            "price" => $this->price,
             "size" => new VariantsResource($this->size),
-            "color" => new VariantsResource($this->color)
+            "color" => new VariantsResource($this->color),
+            "total_item_price" => $this->total_price
         ];
     }
 }

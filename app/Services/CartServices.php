@@ -97,6 +97,9 @@ class CartServices
     {
         try {
             $cart = $this->cartRepo->showCart();
+            if (!$cart) {
+                return $this->notFound('this user does not have a cart');
+            }
             return $this->success(new CartsResource($cart), 'show cart success');
         } catch (Exception $e) {
             return $this->fail('fail in show cart' . $e);

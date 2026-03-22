@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Services;
+
+use App\Repositories\OrderRepository;
+use App\Traits\ApiResponse;
+use Exception;
+use Illuminate\Support\Facades\DB;
+
+class OrderServices
+{
+    use ApiResponse;
+    protected $orderRepo;
+    public function __construct(
+        OrderRepository $orderRepo,
+    ) {
+        $this->orderRepo = $orderRepo;
+    }
+
+    public function checkout($request)
+    {
+        DB::beginTransaction();
+        try {
+            $user = auth('api')->user();
+            $cart = $user->cart;
+            $order = $this->orderRepo->create($request, $cart);
+            foreach ($cart->items as $item) {
+                $orderItem = $this->orderRepo->createItem($order, $item);
+            }
+            $data = [
+                "cheeckUrl" => 'http:paymentlink'
+            ];
+            $cart->items()->delete(); 
+            $cart->delete();
+            DB::commit();
+            return $this->success($data, 'send order successfuly');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->fail('send order failed' . $e);
+        }
+    }
+}

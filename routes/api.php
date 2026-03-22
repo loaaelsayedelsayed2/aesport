@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 require __DIR__.'/v1/auth.php';
 require __DIR__.'/v1/product.php';
 require __DIR__.'/v1/cart.php';
+require __DIR__.'/v1/order.php';

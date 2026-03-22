@@ -19,7 +19,7 @@ class CartsResource extends JsonResource
             "id" => $this->id,
             "cart_number" => $this->cart_number,
             "sub_total" => (float) $this->sub_total,
-            "count_item" => $this->quantity,
+            "count_item" => $this->items->count(),
             "delivery_fees" => (float) $this->delivery_fee,
             "coupon_discount" => (float) $this->coupon_discount,
             "final_total" => (float) $this->final_total,

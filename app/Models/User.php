@@ -47,6 +47,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Review::class);
     }
 
+    public function cart(){
+        return $this->hasOne(Cart::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
