@@ -44,4 +44,12 @@ class OrderRepository
     {
         return Order::find($id);
     }
+    public function updateCancel($id)
+    {
+        $order = $this->getById($id);
+        $order->update([
+            'status' => 'cancelled'
+        ]);
+        return $order;
+    }
 }

@@ -22,4 +22,7 @@ class OrderController extends Controller
     public function details($id) {
         return $this->orderservices->details($id);
     }
+    public function cancel($id) {
+        return $this->orderservices->cancel($id);
+    }
 }

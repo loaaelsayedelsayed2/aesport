@@ -45,12 +45,26 @@ class OrderServices
         try {
             $user = auth('api')->user();
             $order = $this->orderRepo->getById($id);
-            if(!$order){
+            if (!$order) {
                 return $this->notFound('this order not found');
             }
             return $this->success(new OrderDetailsResources($order), 'show order successfuly');
         } catch (Exception $e) {
             return $this->fail('show order failed' . $e);
+        }
+    }
+    public function cancel($id)
+    {
+        try {
+            $user = auth('api')->user();
+            $order = $this->orderRepo->getById($id);
+            if (!$order) {
+                return $this->notFound('this order not found');
+            }
+            $order = $this->orderRepo->updateCancel($id);
+            return $this->success(new OrderDetailsResources($order), 'cancel order successfuly');
+        } catch (Exception $e) {
+            return $this->fail('cancel order failed' . $e);
         }
     }
 }
