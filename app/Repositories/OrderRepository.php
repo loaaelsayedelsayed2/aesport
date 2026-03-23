@@ -40,6 +40,11 @@ class OrderRepository
             "total_price"  => $item->total_price,
         ]);
     }
+    public function list()
+    {
+        $userId = auth('api')->user()->id;
+        return Order::where('user_id',$userId)->get();
+    }
     public function getById($id)
     {
         return Order::find($id);

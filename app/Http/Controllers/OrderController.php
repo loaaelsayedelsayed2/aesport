@@ -19,10 +19,16 @@ class OrderController extends Controller
         return $this->orderservices->checkout($request->validated());
     }
 
+    public function list() {
+        return $this->orderservices->list();
+    }
     public function details($id) {
         return $this->orderservices->details($id);
     }
     public function cancel($id) {
         return $this->orderservices->cancel($id);
+    }
+    public function returnOrder($id) {
+        return $this->orderservices->returnOrder($id);
     }
 }
