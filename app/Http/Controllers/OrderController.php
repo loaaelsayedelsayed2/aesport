@@ -18,4 +18,8 @@ class OrderController extends Controller
     public function checkout(SendOrderRequest $request) {
         return $this->orderservices->checkout($request->validated());
     }
+
+    public function details($id) {
+        return $this->orderservices->details($id);
+    }
 }

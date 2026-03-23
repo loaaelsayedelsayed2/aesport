@@ -22,7 +22,7 @@ class UserProfileResources extends JsonResource
             'phone' => $this->phone,
             'birthday' => $this->birthday,
             // Todo: add orders relation
-            'orders' => [],
+            'orders' => UserOrdersResources::collection($this->orders),
         ];
     }
 }

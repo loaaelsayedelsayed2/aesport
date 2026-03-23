@@ -23,4 +23,9 @@ class Order extends Model
         "phone",
         'is_payment'
     ];
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

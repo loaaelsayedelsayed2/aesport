@@ -40,4 +40,8 @@ class OrderRepository
             "total_price"  => $item->total_price,
         ]);
     }
+    public function getById($id)
+    {
+        return Order::find($id);
+    }
 }
