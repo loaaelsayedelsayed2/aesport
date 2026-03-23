@@ -28,7 +28,7 @@ class OrderController extends Controller
     public function cancel($id) {
         return $this->orderservices->cancel($id);
     }
-    public function returnOrder($id) {
-        return $this->orderservices->returnOrder($id);
+    public function returnOrder($id,Request $request) {
+        return $this->orderservices->returnOrder($id,$request);
     }
 }

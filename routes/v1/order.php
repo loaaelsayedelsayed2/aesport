@@ -9,5 +9,5 @@ Route::prefix('v1/order')->middleware('auth:api')->group(function () {
     Route::get('/list', [OrderController::class, 'list']);
     Route::get('/details/{id}', [OrderController::class, 'details']);
     Route::get('/cancel/{id}', [OrderController::class, 'cancel']);
-    Route::get('/return/{id}', [OrderController::class, 'returnOrder']);
+    Route::post('/return/{id}', [OrderController::class, 'returnOrder']);
 });

@@ -21,11 +21,17 @@ class Order extends Model
         "country",
         "address",
         "phone",
-        'is_payment'
+        'is_payment',
+        'reason'
     ];
 
     public function items()
     {
         return $this->hasMany(OrderItem::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

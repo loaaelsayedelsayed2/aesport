@@ -78,7 +78,7 @@ class OrderServices
             return $this->fail('cancel order failed' . $e);
         }
     }
-    public function returnOrder($id)
+    public function returnOrder($id,$request)
     {
         try {
             $user = auth('api')->user();
@@ -89,8 +89,10 @@ class OrderServices
             if ($order->status !== 'delivered') {
                 return $this->fail('you can only return delivered orders');
             }
-
-            $order->update(['status' => 'returned']);
+            $order->update([
+                'status' => 'returned',
+                "reason" => $request['reason'] ?? null
+            ]);
             return $this->success(new OrderDetailsResources($order), 'return order successfuly');
         } catch (Exception $e) {
             return $this->fail('return order failed' . $e);
