@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('cart_id')->constrained('carts')->onDelete('cascade');
             $table->string('order_number')->unique();
-            $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled','returned'])->default('pending');
+            $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled','returned','return_requested'])->default('pending');
             $table->integer('item_count')->default(1);
             $table->decimal('delivery_fee', 10, 2)->default(0);
             $table->decimal('coupon_discount', 10, 2)->default(0);

@@ -23,8 +23,7 @@ class ReturnedOrdersWidget extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn(): Builder => Order::query()->whereIn('status', ['returned', 'return_requested']))
-            ->actionsColumnLabel('Actions')
+            ->query(fn(): Builder => Order::query()->where('status', 'return_requested'))->actionsColumnLabel('Actions')
             ->searchPlaceholder('Search by order number')
             ->columns([
                 TextColumn::make('id')
@@ -64,8 +63,11 @@ class ReturnedOrdersWidget extends TableWidget
                     ->size('sm')
                     ->button()
                     ->action(function ($record) {
-                        $record->update(['status' => 'returned']);
+                        $record->update([
+                            'status' => 'returned'
+                        ]);
                     })
+                    ->visible(fn($record) => $record->status == 'return_requested')
                     ->requiresConfirmation()
                     ->modalHeading('Approve Return')
                     ->modalDescription('Are you sure you want to approve this return request?'),
@@ -78,6 +80,7 @@ class ReturnedOrdersWidget extends TableWidget
                     ->action(function ($record) {
                         $record->update(['status' => 'delivered']);
                     })
+                    ->visible(fn($record) => $record->status == 'return_requested')
                     ->requiresConfirmation()
                     ->modalHeading('Reject Return')
                     ->modalDescription('Are you sure you want to reject this return request?'),

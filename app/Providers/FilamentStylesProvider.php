@@ -785,6 +785,30 @@ class FilamentStylesProvider extends ServiceProvider
     background-color: #374151 !important;
     color: #f3f4f6 !important;
 }
+/* Section heading/title */
+.fi-section-header-heading {
+    color: #ffffff !important;
+}
+
+/* Placeholder label */
+.fi-fo-placeholder .fi-fo-field-wrp-label label,
+.fi-fo-placeholder label {
+    color: #ffffff !important;
+}
+
+/* Placeholder content */
+.fi-fo-placeholder .fi-fo-field-wrp-hint,
+.fi-fo-placeholder > div {
+    color: #ffffff !important;
+}
+/* Placeholder content text */
+.fi-fo-placeholder-content,
+.fi-fo-placeholder-content *,
+.fi-fo-placeholder p,
+.fi-fo-placeholder span,
+.fi-fo-placeholder div {
+    color: #ffffff !important;
+}
 </style>
 
 

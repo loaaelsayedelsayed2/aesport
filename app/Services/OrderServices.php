@@ -90,7 +90,7 @@ class OrderServices
                 return $this->fail('you can only return delivered orders');
             }
             $order->update([
-                'status' => 'returned',
+                'status' => 'return_requested',
                 "reason" => $request['reason'] ?? null
             ]);
             return $this->success(new OrderDetailsResources($order), 'return order successfuly');

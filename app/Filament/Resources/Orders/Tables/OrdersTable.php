@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Orders\Tables;
 
 use App\Models\Order;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -14,7 +15,7 @@ class OrdersTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->query(fn(): Builder => Order::query()->where('status','!=','returned'))
+            ->query(fn(): Builder => Order::query()->whereNotIn('status', ['return_requested']))
             ->searchPlaceholder('Search by order number')
             ->columns([
                 TextColumn::make('order_number')
@@ -44,15 +45,33 @@ class OrdersTable
                     ->formatStateUsing(fn($state) => ucfirst($state))
                     ->color(fn($state) => match ($state) {
                         'pending'          => 'warning',
-                        'confirmed'        => 'info',
+                        'processing'        => 'info',
                         'shipped'          => 'info',
                         'delivered',
-                        'completed'        => 'success',
                         'cancelled'        => 'danger',
-                        'return_requested' => 'warning',
                         'returned'         => 'gray',
                         default            => 'gray',
-                    }),
+                    })
+                    ->action(
+                        Action::make('updateStatus')
+                            ->form([
+                                \Filament\Forms\Components\Select::make('status')
+                                    ->label('Status')
+                                    ->options([
+                                        'pending'          => 'Pending',
+                                        'processing'        => 'Processing',
+                                        'shipped'          => 'Shipped',
+                                        'delivered'        => 'Delivered',
+                                        'cancelled'        => 'Cancelled',
+                                        // 'returned'        => 'Returned',
+                                    ])
+                                    ->native(false)
+                                    ->required(),
+                            ])
+                            ->visible(fn($record) => $record->status != 'returned')
+                            ->fillForm(fn($record) => ['status' => $record->status])
+                            ->action(fn($record, array $data) => $record->update(['status' => $data['status']]))
+                    ),
 
                 TextColumn::make('item_count')
                     ->label('Items')
@@ -69,13 +88,11 @@ class OrdersTable
                     ->label('All Status')
                     ->options([
                         'pending'          => 'Pending',
-                        'confirmed'        => 'Confirmed',
+                        'processing'        => 'Processing',
                         'shipped'          => 'Shipped',
                         'delivered'        => 'Delivered',
-                        'completed'        => 'Completed',
                         'cancelled'        => 'Cancelled',
-                        'return_requested' => 'Return Requested',
-                        'returned'         => 'Returned',
+                        'returned'        => 'Returned',
                     ]),
 
                 SelectFilter::make('is_payment')
@@ -85,8 +102,7 @@ class OrdersTable
                         '0' => 'Un Paid',
                     ]),
             ])
-            ->recordActions([
-            ])
+            ->recordActions([])
             ->toolbarActions([]);
     }
 }
