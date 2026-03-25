@@ -2,6 +2,10 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\DashboardStatsWidget;
+use App\Filament\Widgets\RecentOrdersWidget;
+use App\Filament\Widgets\TopProductsWidget;
+use App\Filament\Widgets\WelcomeWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -47,10 +51,12 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
-            // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                // AccountWidget::class,
-                // FilamentInfoWidget::class,
+                WelcomeWidget::class,
+                DashboardStatsWidget::class,
+                RecentOrdersWidget::class,
+                TopProductsWidget::class,
+
             ])
             ->middleware([
                 EncryptCookies::class,
