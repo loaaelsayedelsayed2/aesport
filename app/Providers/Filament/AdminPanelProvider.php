@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Widgets\DashboardStatsWidget;
+use App\Filament\Widgets\OrdersDonutChart;
 use App\Filament\Widgets\RecentOrdersWidget;
 use App\Filament\Widgets\TopProductsWidget;
 use App\Filament\Widgets\WelcomeWidget;
@@ -55,6 +56,7 @@ class AdminPanelProvider extends PanelProvider
                 WelcomeWidget::class,
                 DashboardStatsWidget::class,
                 RecentOrdersWidget::class,
+                OrdersDonutChart::class,
                 TopProductsWidget::class,
 
             ])
@@ -72,5 +74,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    public function getColumns(): int
+    {
+        return 2; // هيخلّيهم جنب بعض
     }
 }

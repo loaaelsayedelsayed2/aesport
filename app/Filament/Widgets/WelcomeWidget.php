@@ -25,4 +25,5 @@ class WelcomeWidget extends Widget
             'shipments' => $shipments,
         ];
     }
+
 }
