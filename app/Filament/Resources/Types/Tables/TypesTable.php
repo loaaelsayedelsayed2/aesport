@@ -20,19 +20,19 @@ class TypesTable
             ->actionsColumnLabel('Actions')
             ->columns([
                 TextColumn::make('name')
-                    ->label('Category Name'),
+                    ->label('Type Name'),
                 ToggleColumn::make('is_active')
                     ->label('Is Active'),
                 TextColumn::make('products_count')
                     ->label('Product Count')
-                    ->default(0)
+                    ->counts('products'),
             ])
             ->filters([])
             ->recordActions([
                 EditAction::make()
                     ->label('Edit')
                     ->icon('heroicon-o-pencil')
-                    ->color('white'), 
+                    ->color('white'),
                 DeleteAction::make()
                     ->label('Delete')
                     ->icon('heroicon-o-trash')

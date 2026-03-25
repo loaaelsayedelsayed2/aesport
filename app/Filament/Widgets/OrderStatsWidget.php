@@ -45,7 +45,7 @@ class OrderStatsWidget extends Widget
                 'value'   => number_format($totalNow),
                 'prev'    => $totalPrev,
                 'percent' => $percent($totalNow, $totalPrev),
-                'icon'    => '🛒',
+                'icon'    => 'heroicon-o-shopping-cart',
                 'iconBg'  => '#1a1a2e',
             ],
             [
@@ -53,7 +53,7 @@ class OrderStatsWidget extends Widget
                 'value'   => number_format($completeNow),
                 'prev'    => $completePrev,
                 'percent' => $percent($completeNow, $completePrev),
-                'icon'    => '📊',
+                'icon'    => 'heroicon-o-check-circle',
                 'iconBg'  => '#1a2a3e',
             ],
             [
@@ -61,7 +61,7 @@ class OrderStatsWidget extends Widget
                 'value'   => number_format($cancelNow),
                 'prev'    => $cancelPrev,
                 'percent' => $percent($cancelNow, $cancelPrev),
-                'icon'    => '🚫',
+                'icon'    => 'heroicon-o-x-circle',
                 'iconBg'  => '#2e1a1a',
             ],
             [
@@ -69,7 +69,7 @@ class OrderStatsWidget extends Widget
                 'value'   => number_format($deliveredNow),
                 'prev'    => $deliveredPrev,
                 'percent' => $percent($deliveredNow, $deliveredPrev),
-                'icon'    => '🚚',
+                'icon'    => 'heroicon-o-truck',
                 'iconBg'  => '#2e2a1a',
             ],
         ];

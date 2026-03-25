@@ -37,6 +37,7 @@ class ProductsTable
                 TextColumn::make('category.name')
                     ->label('Category')
                     ->badge()
+                    ->color('red')
                     ->separator(','),
                 TextColumn::make('quantity')
                     ->label('Stock'),
@@ -53,6 +54,7 @@ class ProductsTable
                         0 => 'danger',
                         1 => 'success',
                     }),
+
                 ToggleColumn::make('is_active')
                     ->label('Is Active'),
             ])

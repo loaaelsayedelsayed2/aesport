@@ -146,15 +146,40 @@ class FilamentStylesProvider extends ServiceProvider
     .fi-ta-header-toolbar {
         border-bottom: none !important;
     }
-    /* badge في الجدول */
-    .fi-ta-col .fi-badge {
+/* badge في الجدول - بس مش الـ status */
+    /* .fi-ta-col .fi-badge:not([class*="fi-color-success"]):not([class*="fi-color-danger"]:not([class*="fi-color-wa"]) {
         background-color: #B91818 !important;
         color: #ffffff !important;
         border-color: #B91818 !important;
+    } */
+
+    /* success-*/
+    .fi-badge.fi-color-success {
+        background-color: #16a34a !important;
+        color: #ffffff !important;
+        border-color: #16a34a !important;
+    }
+    .fi-badge.fi-color-warning {
+        background-color: #f09b1d !important;
+        color: #ffffff !important;
+        border-color: #f09b1d !important;
+    }
+    .fi-badge.fi-color-info {
+        background-color: #2185ffcb !important;
+        color: #ffffff !important;
+        border-color: #2185ffcb !important;
+    }
+    .fi-badge.fi-color-gray {
+        background-color: #7c7f81cb !important;
+        color: #ffffff !important;
+        border-color: #7c7f81cb !important;
     }
 
-    .fi-ta-col .fi-badge span {
+    /* danger  */
+    .fi-badge.fi-color-danger {
+        background-color: #dc2626 !important;
         color: #ffffff !important;
+        border-color: #dc2626 !important;
     }
 
     /* --- تنسيق مربع البحث (Search Input) --- */

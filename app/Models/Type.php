@@ -13,7 +13,7 @@ class Type extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class, 'product_types', 'type_id', 'product_id');
     }
 
     public function categories()
