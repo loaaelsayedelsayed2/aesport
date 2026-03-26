@@ -86,7 +86,7 @@ class RevenueTrendWidget extends ChartWidget
             'labels' => $days->pluck('label')->toArray(),
             'datasets' => [
                 [
-                    'label'           => 'Revenue ($)',
+                    'label'           => 'Revenue',
                     'data'            => $days->pluck('revenue')->toArray(),
                     'borderColor'     => '#ef4444',
                     'backgroundColor' => 'transparent',

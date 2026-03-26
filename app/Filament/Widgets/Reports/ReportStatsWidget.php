@@ -41,7 +41,7 @@ class ReportStatsWidget extends Widget
         return [
             [
                 'title'   => 'Total Revenue',
-                'value'   => '$' . number_format($revenueNow / 1000, 3) . ' k',
+                'value'   => number_format($revenueNow / 1000, 3) . ' k',
                 'percent' => $percent($revenueNow, $revenuePrev),
                 'icon'    => 'heroicon-o-currency-dollar',
                 'iconBg'  => '#1a2e0a',
@@ -62,7 +62,7 @@ class ReportStatsWidget extends Widget
             ],
             [
                 'title'   => 'Avg. Order Value',
-                'value'   => '$' . number_format($avgNow / 1000, 3) . ' k',
+                'value'   => number_format($avgNow / 1000, 3) . ' k',
                 'percent' => $percent($avgNow, $avgPrev),
                 'icon'    => 'heroicon-o-arrow-trending-up',
                 'iconBg'  => '#2e0a0a',

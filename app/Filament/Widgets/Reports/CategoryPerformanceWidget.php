@@ -37,7 +37,7 @@ class CategoryPerformanceWidget extends ChartWidget
             'labels' => $categories->pluck('name')->toArray(),
             'datasets' => [
                 [
-                    'label'           => 'Revenue ($)',
+                    'label'           => 'Revenue',
                     'data'            => $categories->pluck('revenue')->toArray(),
                     'backgroundColor' => 'rgba(239, 68, 68, 0.8)',
                     'borderColor'     => '#ef4444',
