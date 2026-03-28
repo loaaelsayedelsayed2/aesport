@@ -151,11 +151,15 @@ class Settings extends Page implements HasForms
         ]);
 
         if (!empty($this->admin_profile_image)) {
-            auth()->user()->update([
-                'profile_image' => is_array($this->admin_profile_image)
-                    ? array_values($this->admin_profile_image)[0]
-                    : $this->admin_profile_image,
-            ]);
+            $file = array_values($this->admin_profile_image)[0];
+
+            // لو TemporaryUploadedFile نقله للـ public disk
+            if ($file instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile) {
+                $path = $file->store('admin_profiles', 'public');
+                auth()->user()->update(['profile_image' => $path]);
+            } else {
+                auth()->user()->update(['profile_image' => $file]);
+            }
         }
 
         $keys = [
