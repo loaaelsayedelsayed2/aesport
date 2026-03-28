@@ -29,7 +29,8 @@ class Settings extends Page implements HasForms
     // Profile
     public ?string $admin_name = null;
     public ?string $admin_email = null;
-    public mixed $admin_profile_image = null;
+    public array $admin_profile_image = [];
+
 
     // Notifications
     public bool $notification_order_updates = false;
@@ -72,7 +73,9 @@ class Settings extends Page implements HasForms
 
         $this->admin_name = auth()->user()->name;
         $this->admin_email = auth()->user()->email;
-        $this->admin_profile_image = auth()->user()->profile_image ?? null;
+        $this->admin_profile_image = auth()->user()->profile_image
+            ? [auth()->user()->profile_image]
+            : [];
 
         $this->notification_order_updates    = (bool)($settings['notification_order_updates'] ?? false);
         $this->notification_low_stock_alerts = (bool)($settings['notification_low_stock_alerts'] ?? false);
@@ -100,12 +103,15 @@ class Settings extends Page implements HasForms
 
     protected function getFormSchema(): array
     {
-        return match($this->activeTab) {
+        return match ($this->activeTab) {
             'profile' => [
                 FileUpload::make('admin_profile_image')
                     ->label('Profile Image')
                     ->image()
-                    ->directory('admin_profiles'),
+                    ->disk('public')
+                    ->directory('admin_profiles')
+                    ->visibility('public')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg']),
                 TextInput::make('admin_name')->label('Name')->required(),
                 TextInput::make('admin_email')->label('Email')->email()->required(),
             ],
@@ -144,17 +150,31 @@ class Settings extends Page implements HasForms
             'email' => $this->admin_email,
         ]);
 
-        if ($this->admin_profile_image) {
-            auth()->user()->update(['profile_image' => $this->admin_profile_image]);
+        if (!empty($this->admin_profile_image)) {
+            auth()->user()->update([
+                'profile_image' => is_array($this->admin_profile_image)
+                    ? array_values($this->admin_profile_image)[0]
+                    : $this->admin_profile_image,
+            ]);
         }
 
         $keys = [
-            'notification_order_updates', 'notification_low_stock_alerts',
-            'notification_order_create', 'notification_customer_reviews',
-            'notification_system_updates', 'site_name', 'home_hero_title',
-            'home_hero_desc', 'home_note_1', 'home_note_2',
-            'filter_page_image_1', 'filter_page_image_2', 'filter_page_image_3',
-            'filter_page_image_4', 'wishlist_page_image', 'cart_page_image',
+            'notification_order_updates',
+            'notification_low_stock_alerts',
+            'notification_order_create',
+            'notification_customer_reviews',
+            'notification_system_updates',
+            'site_name',
+            'home_hero_title',
+            'home_hero_desc',
+            'home_note_1',
+            'home_note_2',
+            'filter_page_image_1',
+            'filter_page_image_2',
+            'filter_page_image_3',
+            'filter_page_image_4',
+            'wishlist_page_image',
+            'cart_page_image',
         ];
 
         foreach ($keys as $key) {
