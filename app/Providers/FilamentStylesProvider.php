@@ -834,6 +834,71 @@ class FilamentStylesProvider extends ServiceProvider
 .fi-fo-placeholder div {
     color: #ffffff !important;
 }
+
+
+/* ========== إصلاح Settings Page ========== */
+
+/* الكارد الأبيض الرئيسي */
+.fi-page-content .fi-card,
+div[class*="bg-white"],
+.bg-white {
+    background-color: #2B2B2B !important;
+    border-color: #3a3a3a !important;
+}
+
+/* الـ Tabs nav */
+[role="tablist"] {
+    background-color: #2B2B2B !important;
+    border-bottom-color: #3a3a3a !important;
+}
+
+/* Tab نشط */
+[role="tab"][aria-selected="true"],
+.fi-tabs-tab[aria-selected="true"],
+button[role="tab"][aria-selected="true"] {
+    background-color: #B91818 !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+/* Tab غير نشط */
+[role="tab"]:not([aria-selected="true"]),
+.fi-tabs-tab:not([aria-selected="true"]),
+button[role="tab"]:not([aria-selected="true"]) {
+    background-color: transparent !important;
+    color: #AFAFAF !important;
+    border: none !important;
+    border-bottom: none !important;
+}
+
+/* hover على التاب الغير نشط */
+[role="tab"]:not([aria-selected="true"]):hover {
+    background-color: #3a3a3a !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+}
+
+/* إزالة الخط الأحمر اللي تحت التاب */
+.fi-tabs-nav,
+[role="tablist"] {
+    border-bottom: 1px solid #3a3a3a !important;
+}
+
+/* محتوى الـ tab */
+[role="tabpanel"] {
+    background-color: #2B2B2B !important;
+}
+
+/* إصلاح autofill الأزرق */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #3a3a3a inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
 </style>
 
 
