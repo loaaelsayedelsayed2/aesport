@@ -8,6 +8,7 @@ class Type extends Model
 {
     protected $fillable = [
         "name",
+        "image",
         "is_active",
     ];
 

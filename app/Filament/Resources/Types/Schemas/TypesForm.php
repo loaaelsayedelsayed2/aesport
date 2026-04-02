@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Types\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -15,10 +16,17 @@ class TypesForm
         return $schema
             ->components([
                 TextInput::make('name')
-                ->label('Type Name')
-                ->placeholder('Men')
-                ->extraInputAttributes(['class' => 'custom-input-style'])
-                ->required(),
+                    ->label('Type Name')
+                    ->placeholder('Men')
+                    ->extraInputAttributes(['class' => 'custom-input-style'])
+                    ->required(),
+                FileUpload::make('image')
+                    ->label('Image')
+                    ->disk('public')
+                    ->directory('types')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp'])
+                    ->required(),
+
 
                 Toggle::make('is_active')
                     ->label('Status')

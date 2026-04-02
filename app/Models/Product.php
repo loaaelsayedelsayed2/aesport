@@ -82,6 +82,11 @@ class Product extends Model
         return $this->hasMany(CartItem::class, 'product_id');
     }
 
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
     protected static function booted()
     {
         static::creating(function ($product) {
@@ -91,7 +96,7 @@ class Product extends Model
             if ($product->price && $product->discount_price) {
                 $product->price_before_discount = $product->price + $product->discount_price;
             } else {
-                $product->price_before_discount = $product->price; // ✅ لو مفيش discount
+                $product->price_before_discount = $product->price;
             }
         });
     }

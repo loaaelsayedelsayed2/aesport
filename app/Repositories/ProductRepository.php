@@ -13,8 +13,9 @@ class ProductRepository
 {
     public function list()
     {
-        $userId = auth('api')->user()->id;
-        return QueryBuilder::for(Product::class)
+        $userId = auth('api')->user()?->id;
+
+        $query = QueryBuilder::for(Product::class)
             ->allowedFilters([
                 AllowedFilter::exact('brand', 'brand.id'),
                 AllowedFilter::exact('category', 'category.id'),
@@ -23,6 +24,13 @@ class ProductRepository
                 AllowedFilter::callback('price_from', fn($q, $v) => $q->where('price', '>=', $v)),
                 AllowedFilter::callback('price_to',   fn($q, $v) => $q->where('price', '<=', $v)),
                 AllowedFilter::partial('search', 'name'),
+                AllowedFilter::callback('collection', function ($q, $v) {
+                    match ($v) {
+                        'best', 'trend' => $q->withCount('orderItems')->orderByDesc('order_items_count'),
+                        'new'           => $q->orderBy('created_at', 'desc'),
+                        default         => null,
+                    };
+                }),
             ])
             ->allowedSorts([
                 'price',
@@ -40,16 +48,20 @@ class ProductRepository
                 'created_at',
             ])
             ->withAvg('reviews', 'rating')
-            ->withCount([
+            ->with(['brand', 'category', 'type', 'sports', 'variants', 'images', 'reviews.user', 'reviews.images']);
+
+        if ($userId) {
+            $query->withCount([
                 'favs as fav' => fn($q) => $q->where('user_id', $userId),
                 'cartItems as in_cart' => function ($q) use ($userId) {
                     $q->whereHas('cart', function ($q2) use ($userId) {
                         $q2->where('user_id', $userId);
                     });
                 }
-            ])
-            ->with(['brand', 'category', 'type', 'sports', 'variants', 'images', 'reviews.user', 'reviews.images'])
-            ->get();
+            ]);
+        }
+
+        return $query->get();
     }
     public function details($id)
     {
