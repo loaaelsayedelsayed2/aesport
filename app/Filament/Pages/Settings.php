@@ -52,7 +52,6 @@ class Settings extends Page implements HasForms
     public ?string $home_hero_title = null;
     public ?string $home_hero_desc  = null;
     public ?array $home_hero_image   = [];
-    public bool $home_hero_active   = false;
     public ?string $home_note_1     = null;
     public ?string $home_note_2     = null;
     public bool $home_promo_active  = false;
@@ -117,7 +116,6 @@ class Settings extends Page implements HasForms
         $this->home_note_2  = $settings['home_note_2'] ?? null;
         $this->home_hero_desc   = $settings['home_hero_desc'] ?? null;
         $this->home_hero_image  = isset($settings['home_hero_image']) ? [$settings['home_hero_image']] : [];
-        $this->home_hero_active = (bool)($settings['home_hero_active'] ?? false);
         $this->home_promo_active = (bool)($settings['home_promo_active'] ?? false);
 
         $this->filter_page_image_1 = isset($settings['filter_page_image_1']) ? [$settings['filter_page_image_1']] : [];
@@ -429,7 +427,6 @@ class Settings extends Page implements HasForms
 
         // ========== 5. حفظ الحالات المنطقية ==========
         $booleanFields = [
-            'home_hero_active',
             'home_promo_active',
             'filter_active',
             'wishlist_active',
