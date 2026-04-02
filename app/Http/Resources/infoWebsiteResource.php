@@ -22,7 +22,7 @@ class infoWebsiteResource extends JsonResource
             $value = $item->value ?? null;
 
             if ($value && $this->isImage($value)) {
-                $value = asset($value);
+                $value = asset('storage/' . $value);
             }
 
             switch ($item->key) {
@@ -30,7 +30,7 @@ class infoWebsiteResource extends JsonResource
                     $data['website_name'] = $value;
                     break;
                 case 'site_logo':
-                    $data['website_logo'] = $value;
+                    $data['website_logo'] = asset('storage/' . $value);
                     break;
                 case 'contact_active':
                     $data['contact_bar_active'] = (int)$value;

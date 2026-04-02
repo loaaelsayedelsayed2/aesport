@@ -7,6 +7,7 @@ use App\Filament\Widgets\OrdersDonutChart;
 use App\Filament\Widgets\RecentOrdersWidget;
 use App\Filament\Widgets\TopProductsWidget;
 use App\Filament\Widgets\WelcomeWidget;
+use App\Models\Setting;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,13 +29,13 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-
         return $panel
             ->default()
             ->defaultThemeMode(ThemeMode::Dark)
             ->darkMode(false)
             ->id('admin')
             ->path('admin')
+            ->brandLogo(asset('storage/' . Setting::where('key','site_logo')->first()->value))
             ->login()
             ->authGuard('admin')
             ->globalSearch(false)
