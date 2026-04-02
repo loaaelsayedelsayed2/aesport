@@ -181,10 +181,70 @@
 
                         {{ $this->form->getComponent('cart_page_image') }}
                     </div>
+                    {{-- ===== Contact ===== --}}
+                    <div style="margin-bottom: 32px;">
+                        <p
+                            style="color: #9CA3AF; font-size: 12px; font-weight: 600; text-transform: uppercase;
+                                letter-spacing: 1px; margin-bottom: 12px;">
+                            Contact Page</p>
 
-                    <button type="submit" style="background:#B91818;color:white;padding:10px 20px;border-radius:8px;">
-                        Save
-                    </button>
+                        <div style="background-color: #1e1e1e; border-radius: 12px; padding: 16px;">
+                            <!-- Active Toggle -->
+                            <div
+                                style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <div>
+                                    <p style="color: #e91a2199; font-size: 15px; font-weight: 600; margin: 0 0 4px 0;">
+                                        Contact Page Status</p>
+                                    <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Enable/disable contact page
+                                    </p>
+                                    @if ($contact_active)
+                                        <span style="color: #22c55e; font-size: 12px;">● Active Now</span>
+                                    @else
+                                        <span style="color: #6b7280; font-size: 12px;">● Inactive</span>
+                                    @endif
+                                </div>
+                                <div wire:click="$set('contact_active', {{ $contact_active ? 'false' : 'true' }})"
+                                    style="width: 48px; height: 26px; border-radius: 999px; cursor: pointer;
+                        background-color: {{ $contact_active ? '#B91818' : '#555' }};
+                        position: relative; flex-shrink: 0;">
+                                    <div
+                                        style="position: absolute; top: 3px;
+                        left: {{ $contact_active ? '25px' : '3px' }};
+                        width: 20px; height: 20px; border-radius: 50%; background-color: white;">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Contact Email -->
+                            <div style="margin-bottom: 16px;">
+                                <p style="color: white; font-size: 14px; font-weight: 600; margin: 0 0 8px 0;">Email
+                                    Address</p>
+                                <input wire:model="contact_email" type="email" placeholder="support@example.com"
+                                    style="width: 100%; background-color: #2B2B2B; border: 1px solid #3a3a3a;
+                        border-radius: 8px; padding: 10px 14px; color: white; font-size: 14px;
+                        outline: none; box-sizing: border-box;">
+                            </div>
+
+                            <!-- Contact Phone -->
+                            <div style="margin-bottom: 16px;">
+                                <p style="color: white; font-size: 14px; font-weight: 600; margin: 0 0 8px 0;">Phone
+                                    Number</p>
+                                <input wire:model="contact_phone" type="tel" placeholder="+1 234 567 8900"
+                                    style="width: 100%; background-color: #2B2B2B; border: 1px solid #3a3a3a;
+                        border-radius: 8px; padding: 10px 14px; color: white; font-size: 14px;
+                        outline: none; box-sizing: border-box;">
+                            </div>
+
+                            <!-- Contact Address -->
+                            <div style="margin-bottom: 16px;">
+                                <p style="color: white; font-size: 14px; font-weight: 600; margin: 0 0 8px 0;">Physical
+                                    Address</p>
+                                <textarea wire:model="contact_address" rows="3" placeholder="123 Business St, Suite 100, City, Country"
+                                    style="width: 100%; background-color: #2B2B2B; border: 1px solid #3a3a3a;
+                        border-radius: 8px; padding: 10px 14px; color: white; font-size: 14px;
+                        outline: none; box-sizing: border-box; resize: vertical;"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
                 </form>
 

@@ -113,6 +113,8 @@ class Settings extends Page implements HasForms
         $this->site_logo = isset($settings['site_logo']) ? [$settings['site_logo']] : [];
 
         $this->home_hero_title  = $settings['home_hero_title'] ?? null;
+        $this->home_note_1  = $settings['home_note_1'] ?? null;
+        $this->home_note_2  = $settings['home_note_2'] ?? null;
         $this->home_hero_desc   = $settings['home_hero_desc'] ?? null;
         $this->home_hero_image  = isset($settings['home_hero_image']) ? [$settings['home_hero_image']] : [];
         $this->home_hero_active = (bool)($settings['home_hero_active'] ?? false);
