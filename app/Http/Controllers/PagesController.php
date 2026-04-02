@@ -19,4 +19,12 @@ class PagesController extends Controller
     {
         return $this->pagesServices->home();
     }
+    public function showInfo()
+    {
+        return $this->pagesServices->showInfo();
+    }
+    public function getBanners()
+    {
+        return $this->pagesServices->getBanners();
+    }
 }

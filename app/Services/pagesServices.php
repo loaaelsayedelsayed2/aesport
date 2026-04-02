@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Resources\BrandsResource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\HomePageResource;
+use App\Http\Resources\infoWebsiteResource;
 use App\Http\Resources\pagesResource;
 use App\Http\Resources\ProductResources;
 use App\Http\Resources\SportsResource;
@@ -63,6 +64,24 @@ class pagesServices
             ];
 
             return $this->success($data, 'show home success');
+        } catch (Exception $e) {
+            return $this->fail('fail in show list ' . $e->getMessage());
+        }
+    }
+    public function showInfo()
+    {
+        try {
+            $getInfo = $this->settingsRepo->getInfo();
+            return $this->success(new infoWebsiteResource($getInfo), 'show info website success');
+        } catch (Exception $e) {
+            return $this->fail('fail in show list ' . $e->getMessage());
+        }
+    }
+    public function getBanners()
+    {
+        try {
+            $getInfo = $this->settingsRepo->getBanners();
+            return $this->success(pagesResource::collection($getInfo), 'show banners website success');
         } catch (Exception $e) {
             return $this->fail('fail in show list ' . $e->getMessage());
         }

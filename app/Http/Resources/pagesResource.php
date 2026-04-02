@@ -18,8 +18,8 @@ class pagesResource extends JsonResource
 
         return [
             "id" => $this->id,
-            "key" => $this->key,
-            "value" => $value,
+            "page" => $this->key,
+            "banner" => $value,
         ];
     }
 
