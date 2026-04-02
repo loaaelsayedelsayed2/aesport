@@ -43,6 +43,10 @@ class ProductsTable
                     ->label('Stock'),
                 TextColumn::make('price')
                     ->label('Price'),
+                TextColumn::make('discount_type')
+                    ->label('Discount Type'),
+                TextColumn::make('discount_price')
+                    ->label('Discount Value'),
                 TextColumn::make('in_stock')
                     ->label('Status')
                     ->badge()

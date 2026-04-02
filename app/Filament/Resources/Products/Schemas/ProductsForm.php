@@ -117,12 +117,20 @@ class ProductsForm
                                 ->preload(),
                         ]),
 
-                        Grid::make(2)->schema([
+                        Grid::make(1)->schema([
                             TextInput::make('price')
                                 ->label('Price')
                                 ->placeholder('80')
                                 ->numeric()
                                 ->required(),
+                        ]),
+                        Grid::make(2)->schema([
+                            Select::make('discount_type')
+                                ->label('Discount Type')
+                                ->options([
+                                    'Fixed' => 'fixed',
+                                    'Percentage' => 'percentage',
+                                ]),
 
                             TextInput::make('discount_price')
                                 ->label('Discount')

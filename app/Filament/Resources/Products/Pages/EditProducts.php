@@ -16,10 +16,10 @@ class EditProducts extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
+            // ViewAction::make(),
             DeleteAction::make(),
-            ForceDeleteAction::make(),
-            RestoreAction::make(),
+            // ForceDeleteAction::make(),
+            // RestoreAction::make(),
         ];
     }
 }

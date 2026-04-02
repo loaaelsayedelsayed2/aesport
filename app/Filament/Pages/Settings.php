@@ -2,9 +2,11 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\Product;
 use App\Models\Setting;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -50,6 +52,7 @@ class Settings extends Page implements HasForms
 
     // Content - Home
     public ?string $home_hero_title = null;
+    public ?string $home_sec2_title = null;
     public ?string $home_hero_desc  = null;
     public ?array $home_hero_image   = [];
     public ?string $home_note_1     = null;
@@ -112,6 +115,7 @@ class Settings extends Page implements HasForms
         $this->site_logo = isset($settings['site_logo']) ? [$settings['site_logo']] : [];
 
         $this->home_hero_title  = $settings['home_hero_title'] ?? null;
+        $this->home_sec2_title  = $settings['home_sec2_title'] ?? null;
         $this->home_note_1  = $settings['home_note_1'] ?? null;
         $this->home_note_2  = $settings['home_note_2'] ?? null;
         $this->home_hero_desc   = $settings['home_hero_desc'] ?? null;
@@ -226,6 +230,32 @@ class Settings extends Page implements HasForms
 
             TextInput::make('home_hero_title')
                 ->label('Hero Title')
+                ->hidden(fn() => $this->activeTab !== 'content'),
+
+            Select::make('home_sec2_title')
+                ->label('Type Sale in Section 2 in home')
+                ->options(function () {
+                    return Product::query()
+                        ->whereNotNull('discount_price')
+                        ->where('discount_price', '>', 0)
+                        ->whereNotNull('discount_type')
+                        ->select(['discount_price', 'discount_type'])
+                        ->distinct()
+                        ->orderBy('discount_type')
+                        ->orderBy('discount_price')
+                        ->get()
+                        ->mapWithKeys(function ($product) {
+                            $label = $product->discount_type === 'percentage'
+                                ? $product->discount_price . '%'
+                                : $product->discount_price . ' EGP';
+
+                            $value = $product->discount_price . '_' . $product->discount_type;
+
+                            return [$value => $label];
+                        })
+                        ->unique() // يشيل أي تكرار محتمل
+                        ->toArray();
+                })
                 ->hidden(fn() => $this->activeTab !== 'content'),
 
             TextInput::make('home_hero_desc')
@@ -406,6 +436,7 @@ class Settings extends Page implements HasForms
         $textFields = [
             'site_name',
             'home_hero_title',
+            'home_sec2_title',
             'home_hero_desc',
             'home_note_1',
             'home_note_2',

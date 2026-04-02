@@ -9,7 +9,6 @@ class HomePageResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        // تعريف الداتا الافتراضية
         $data = [
             "title" => null,
             "desc" => null,
@@ -19,7 +18,6 @@ class HomePageResource extends JsonResource
             "promot_2" => null,
         ];
 
-        // هنا نفترض أن $this->resource هو collection من ال settings
         foreach ($this->resource as $item) {
             $value = $item->value ?? null;
 

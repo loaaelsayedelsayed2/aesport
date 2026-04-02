@@ -70,4 +70,12 @@ class ProductRepository
     {
         return Product::find($id);
     }
+
+    public function getProductsBySale($discount)
+    {
+        return Product::where('discount_price', '>=', $discount[0])
+            ->where('discount_type', $discount[1])
+            ->limit(6)
+            ->get();
+    }
 }

@@ -13,5 +13,8 @@ class SettingsRepository
     public function getDataHome(){
         return Setting::where('key','like','home_%')->get();
     }
+    public function getDataHomeSec2(){
+        return Setting::where('key','home_sec2_title')->first();
+    }
 
 }

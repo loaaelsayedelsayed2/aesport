@@ -151,6 +151,7 @@
                                 style="width: 100%; background-color: #2B2B2B; border: 1px solid #3a3a3a;
                             border-radius: 8px; padding: 10px 14px; color: white; font-size: 14px;
                             outline: none; box-sizing: border-box; display: block;">
+                            {{ $this->form->getComponent('home_sec2_title') }}
                         </div>
                     </div>
 
