@@ -899,6 +899,89 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #3a3a3a inset !important;
     -webkit-text-fill-color: #ffffff !important;
 }
+
+
+
+/* ========== Login Page ========== */
+
+/* الخلفية gradient أحمر وأسود */
+.fi-simple-layout,
+.fi-simple-main,
+body.fi-body:has(.fi-simple-layout) {
+    background: radial-gradient(ellipse at left center, #B91818 0%, #000000 60%) !important;
+    min-height: 100vh !important;
+}
+
+
+/* الفورم الداكن في المنتصف */
+.fi-simple-main .fi-card,
+.fi-simple-layout .fi-card,
+.fi-auth-card {
+    background-color: rgba(30, 30, 30, 0.85) !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(10px) !important;
+}
+/* العناوين والليبلات بيضاء */
+.fi-simple-layout label,
+.fi-simple-layout .fi-fo-field-wrp-label label,
+.fi-simple-layout h1,
+.fi-simple-layout h2,
+.fi-simple-layout p,
+.fi-simple-layout span,
+.fi-auth-card label,
+.fi-auth-card h1,
+.fi-auth-card h2,
+.fi-auth-card span {
+    color: #ffffff !important;
+}
+
+/* الـ inputs */
+.fi-simple-layout input,
+.fi-auth-card input {
+    background-color: #3a3a3a !important;
+    color: #ffffff !important;
+    border: 1px solid #444 !important;
+    border-radius: 8px !important;
+}
+
+.fi-simple-layout input::placeholder,
+.fi-auth-card input::placeholder {
+    color: #888888 !important;
+}
+
+.fi-simple-layout input:focus,
+.fi-auth-card input:focus {
+    border-color: #B91818 !important;
+    box-shadow: 0 0 0 1px #B91818 !important;
+}
+
+/* زرار Sign in أحمر */
+.fi-simple-layout .fi-btn-color-primary,
+.fi-auth-card .fi-btn-color-primary {
+    background-color: #B91818 !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    font-weight: bold !important;
+    letter-spacing: 1px !important;
+}
+
+.fi-simple-layout .fi-btn-color-primary:hover,
+.fi-auth-card .fi-btn-color-primary:hover {
+    background-color: #a01515 !important;
+}
+
+.fi-simple-main > div,
+.fi-simple-layout > main > div > div {
+    background-color: rgba(20, 20, 20, 0.75) !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 16px !important;
+    padding: 32px !important;
+    backdrop-filter: blur(8px) !important;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5) !important;
+}
 </style>
 
 
