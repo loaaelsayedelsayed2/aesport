@@ -13,13 +13,13 @@ class pagesResource extends JsonResource
         $value = $this->value;
 
         if ($this->isImage($value)) {
-            $value = asset('storage/' . $value); 
+            $value = asset($value);
         }
 
         return [
             "id" => $this->id,
             "page" => $this->key,
-            "banner" => asset('storage/' . $value),
+            "banner" => asset($value),
         ];
     }
 

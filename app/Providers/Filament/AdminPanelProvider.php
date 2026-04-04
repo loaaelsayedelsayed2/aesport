@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
 
         if (Schema::hasTable('settings')) {
             $setting = Setting::where('key', 'site_logo')->first();
-            $logo = $setting ? asset('storage/' . $setting->value) : null;
+            $logo = $setting ? asset($setting->value) : null;
         }else{
             $setting = null;
             $logo = null;

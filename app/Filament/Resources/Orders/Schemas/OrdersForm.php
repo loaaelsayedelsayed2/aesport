@@ -67,7 +67,7 @@ class OrdersForm
 
                                 $rows = $items->map(function ($item) {
                                     $image = $item->product?->main_image
-                                        ? '<img src="' . asset('storage/' . $item->product->main_image) . '" style="width:48px;height:48px;object-fit:cover;border-radius:6px;">'
+                                        ? '<img src="' . asset($item->product->main_image) . '" style="width:48px;height:48px;object-fit:cover;border-radius:6px;">'
                                         : '<div style="width:48px;height:48px;background:#444;border-radius:6px;"></div>';
 
                                     $color = $item->color?->value
