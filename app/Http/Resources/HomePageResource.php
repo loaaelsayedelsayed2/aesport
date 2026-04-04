@@ -20,11 +20,6 @@ class HomePageResource extends JsonResource
 
         foreach ($this->resource as $item) {
             $value = $item->value ?? null;
-
-            if ($value && $this->isImage($value)) {
-                asset($value);
-            }
-
             switch ($item->key) {
                 case 'home_hero_title':
                     $data['title'] = $value;
@@ -33,7 +28,7 @@ class HomePageResource extends JsonResource
                     $data['desc'] = $value;
                     break;
                 case 'home_hero_image':
-                    $data['image'] = asset($value);
+                    $data['image'] = asset('storage/' . $value);
                     break;
                 case 'home_promo_active':
                     $data['promot_bar_active'] = (int)$value;

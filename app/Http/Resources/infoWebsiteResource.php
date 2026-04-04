@@ -20,11 +20,6 @@ class infoWebsiteResource extends JsonResource
 
         foreach ($this->resource as $item) {
             $value = $item->value ?? null;
-
-            if ($value && $this->isImage($value)) {
-                $value = asset('storage/' . $value);
-            }
-
             switch ($item->key) {
                 case 'site_name':
                     $data['website_name'] = $value;

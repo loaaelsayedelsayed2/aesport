@@ -17,7 +17,7 @@ class BrandsResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "logo" => $this->logo ? asset($this->logo) : null,
+            "logo" => $this->logo ? asset('storage/' . $this->logo) : null,
         ];
     }
 }

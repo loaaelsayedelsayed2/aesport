@@ -10,16 +10,16 @@ class pagesResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $value = $this->value;
+        $value = $this->value ?? null;
 
-        if ($this->isImage($value)) {
-            $value = asset($value);
-        }
+         if ($value && $this->isImage($value)) {
+             $value = asset('storage/' . $value);
+         }
 
         return [
             "id" => $this->id,
             "page" => $this->key,
-            "banner" => asset($value),
+            "banner" => $value,
         ];
     }
 
