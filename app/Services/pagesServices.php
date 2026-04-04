@@ -48,7 +48,7 @@ class pagesServices
 
             $productsBySale = $saleParts
                 ? $this->productRepo->getProductsBySale($saleParts)
-                : collect();
+                : $this->productRepo->list();
             $brand = $this->brandRepo->list();
             $types = $this->typeRepo->list();
             $sports = $this->sportRepo->list();
@@ -56,8 +56,8 @@ class pagesServices
             $data = [
                 'heroSection' => new HomePageResource($heroSection),
                 'sectionSale' => [
-                    'sale' => $saleParts ? (float) $saleParts[0] : null,
-                    'type' => $saleParts ? $saleParts[1] : null,
+                    'sale' => $saleParts ? (float) $saleParts[0] : 'Our Products',
+                    'type' => $saleParts ? $saleParts[1] : 'Our Products',
                     'products' => $saleParts
                         ? ProductResources::collection($productsBySale)
                         : [],
