@@ -24,18 +24,27 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Enums\DarkModeMode;
 use Filament\Enums\ThemeMode;
+use Filament\Schemas\Schema;
 
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+
+        if (Schema::hasTable('settings')) {
+            $setting = Setting::where('key', 'site_logo')->first();
+            $logo = $setting ? asset('storage/' . $setting->value) : null;
+        }else{
+            $setting = null;
+            $logo = null;
+        }
         return $panel
             ->default()
             ->defaultThemeMode(ThemeMode::Dark)
             ->darkMode(false)
             ->id('admin')
             ->path('admin')
-            ->brandLogo(asset('storage/' . Setting::where('key','site_logo')->first()->value))
+            ->brandLogo($logo)
             ->login()
             ->authGuard('admin')
             ->globalSearch(false)
