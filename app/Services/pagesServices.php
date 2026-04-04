@@ -58,9 +58,7 @@ class pagesServices
                 'sectionSale' => [
                     'sale' => $saleParts ? (float) $saleParts[0] : 'Our Products',
                     'type' => $saleParts ? $saleParts[1] : 'Our Products',
-                    'products' => $saleParts
-                        ? ProductResources::collection($productsBySale)
-                        : [],
+                    'products' => ProductResources::collection($productsBySale),
                 ],
                 'brand' => BrandsResource::collection($brand),
                 'type' => TypesResources::collection($types),
