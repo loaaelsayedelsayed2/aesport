@@ -21,7 +21,7 @@ class ProductDetailsResources extends JsonResource
             "name" => $this->name,
             "description" => $this->description,
             "additional_info" => $this->additional_info,
-            'main_image' => asset($this->main_image),
+            'main_image' => asset('storage/' . $this->main_image),
             'images' => ImagesResource::collection($this->images),
             'category' => CategoriesResource::collection($this->category),
             'price' => $this->price,

@@ -17,7 +17,7 @@ class TypesResources extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "image" => asset($this->image)
+            "image" => asset( 'storage/' . $this->image)
         ];
     }
 }

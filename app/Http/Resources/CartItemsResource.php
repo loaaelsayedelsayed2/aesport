@@ -18,7 +18,7 @@ class CartItemsResource extends JsonResource
             "item_id" => $this->id,
             "product_id" => $this->product_id,
             "product_name" => $this->product->name,
-            "product_image" => asset($this->product->main_image),
+            "product_image" => asset('storage/' . $this->product->main_image),
             "quantity" => $this->quantity,
             "price" => $this->price,
             "size" => new VariantsResource($this->size),

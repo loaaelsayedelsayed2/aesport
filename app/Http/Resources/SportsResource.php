@@ -17,7 +17,7 @@ class SportsResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "image" => $this->image ? asset($this->image) : null,
+            "image" => $this->image ? asset('storage/' . $this->image) : null,
 
         ];
     }

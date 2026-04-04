@@ -17,7 +17,7 @@ class ProductResources extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            'main_image' => asset($this->main_image),
+            'main_image' => asset('storage/' . $this->main_image),
             'category' => CategoriesResource::collection($this->category),
             'price' => $this->price,
             'price_before_discount' => $this->price_before_discount,

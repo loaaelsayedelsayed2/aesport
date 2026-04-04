@@ -17,7 +17,7 @@ class WishListProductResources extends JsonResource
         return [
             "id"                  => $this->product->id,
             "name"                => $this->product->name,
-            'main_image'          => asset($this->product->main_image),
+            'main_image'          => asset('storage/' . $this->product->main_image),
             'category'            => CategoriesResource::collection($this->product->category),
             'price'               => $this->product->price,
             'price_before_discount' => $this->product->price_before_discount,

@@ -18,7 +18,7 @@ class OrderDetailsItemsResources extends JsonResource
             'id' => $this->id,
             'product_id' => $this->product->id,
             'product_name' => $this->product->name,
-            'product_image' => asset($this->product->main_image),
+            'product_image' => asset('storage/' . $this->product->main_image),
             'price' => $this->price,
             'quantity' => $this->quantity,
             "size" => new VariantsResource($this->size),
