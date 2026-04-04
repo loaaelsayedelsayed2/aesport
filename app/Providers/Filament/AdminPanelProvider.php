@@ -24,8 +24,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Enums\DarkModeMode;
 use Filament\Enums\ThemeMode;
-use Filament\Schemas\Schema;
-
+use Illuminate\Support\Facades\Schema;
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
