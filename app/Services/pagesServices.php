@@ -23,7 +23,7 @@ use Exception;
 class pagesServices
 {
     use ApiResponse;
-    protected $brandRepo, $settingsRepo,$productRepo,$sportRepo,$typeRepo;
+    protected $brandRepo, $settingsRepo, $productRepo, $sportRepo, $typeRepo;
     public function __construct(
         BrandsRepository $brandRepo,
         SettingsRepository $settingsRepo,
@@ -46,7 +46,9 @@ class pagesServices
             $saleValue = $sec2 ? $sec2->value : null;
             $saleParts = $saleValue ? explode('_', $saleValue) : null;
 
-            $productsBySale = $this->productRepo->getProductsBySale($saleParts);
+            $productsBySale = $saleParts
+                ? $this->productRepo->getProductsBySale($saleParts)
+                : collect();
             $brand = $this->brandRepo->list();
             $types = $this->typeRepo->list();
             $sports = $this->sportRepo->list();
@@ -56,8 +58,10 @@ class pagesServices
                 'sectionSale' => [
                     'sale' => $saleParts ? (float) $saleParts[0] : null,
                     'type' => $saleParts ? $saleParts[1] : null,
-                    'products' => ProductResources::collection($productsBySale),
-                    ],
+                    'products' => $saleParts
+                        ? ProductResources::collection($productsBySale)
+                        : [],
+                ],
                 'brand' => BrandsResource::collection($brand),
                 'type' => TypesResources::collection($types),
                 'sports' => SportsResource::collection($sports),
